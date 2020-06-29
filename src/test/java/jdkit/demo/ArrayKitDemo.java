@@ -33,8 +33,7 @@ import org.openingo.jdkits.SysOutPrintKit;
 /**
  * 测试
  *
- * * @author Qicz
- * @date 2020/6/2
+ * @author Qicz
  */
 public class ArrayKitDemo {
 

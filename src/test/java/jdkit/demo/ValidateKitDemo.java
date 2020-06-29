@@ -32,8 +32,7 @@ import org.openingo.jdkits.ValidateKit;
 /**
  * ValidateKitDemo
  *
- * * @author Qicz
- *
+ * @author Qicz
  */
 public class ValidateKitDemo {
 

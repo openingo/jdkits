@@ -35,8 +35,7 @@ import java.util.List;
 /**
  * JasksonKit demo
  *
- * * @author Qicz
- *
+ * @author Qicz
  */
 public class JacksonKitDemo {
 

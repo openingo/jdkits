@@ -35,8 +35,7 @@ import java.io.FileOutputStream;
 /**
  * QrCodeKitDemo
  *
- * * @author Qicz
- *
+ * @author Qicz
  */
 public class QrCodeKitDemo {
 

@@ -35,8 +35,7 @@ import java.util.List;
 /**
  * DDLKit Demo
  *
- * * @author Qicz
- *
+ * @author Qicz
  */
 public class DDLKitDemo {
 

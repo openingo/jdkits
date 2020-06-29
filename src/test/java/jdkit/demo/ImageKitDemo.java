@@ -34,8 +34,7 @@ import java.io.IOException;
 /**
  * ImageKitDemo
  *
- * * @author Qicz
- *
+ * @author Qicz
  */
 public class ImageKitDemo {
 

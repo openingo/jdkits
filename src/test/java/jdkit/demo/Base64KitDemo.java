@@ -34,8 +34,7 @@ import org.openingo.jdkits.RandomKit;
 /**
  * Base64Kit Demo
  *
- * * @author QiczÎ
- *
+ * @author QiczÎ
  */
 public class Base64KitDemo {
 

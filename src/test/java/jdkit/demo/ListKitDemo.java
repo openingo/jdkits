@@ -34,8 +34,7 @@ import java.util.List;
 /**
  * ListKitDemo
  *
- * * @author Qicz
- *
+ * @author Qicz
  */
 public class ListKitDemo {
 

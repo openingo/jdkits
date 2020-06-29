@@ -32,8 +32,7 @@ import org.openingo.jdkits.RSAKit;
 /**
  * RSAKitDemo
  *
- * * @author Qicz
- *
+ * @author Qicz
  */
 public class RSAKitDemo {
 
