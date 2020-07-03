@@ -31,6 +31,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,5 +95,14 @@ public final class FastJsonKit {
      */
     public static <T> List<T[]> to2DList(String json, Class<T[]> clazz) {
         return JSONArray.parseArray(json, clazz);
+    }
+
+    /**
+     * 转化为List< Map< K, Object>>
+     * @param json
+     * @param <K>
+     */
+    public static <K> List<Map<K, Object>> toMapList(String json) {
+        return toObj(json, List.class);
     }
 }

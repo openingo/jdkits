@@ -27,6 +27,8 @@
 
 package jdkit.demo;
 
+import java.util.Map;
+import org.openingo.jdkits.FastJsonKit;
 import org.openingo.jdkits.JacksonKit;
 
 import java.util.ArrayList;
@@ -49,5 +51,12 @@ public class JacksonKitDemo {
 
 
         System.out.println(json);
+
+        List<Map<String, Object>> hashMaps = JacksonKit.toMapList("[{\"name\":\"zcq\", \"age\":1},{\"name\":\"zcq1\", \"age\":11, \"addr\":\"bj\"}]");
+        hashMaps.forEach(map -> {
+            String age = map.get("age").toString();
+            System.out.println(age.getClass() + "map" + map);
+        });
+        System.out.println(hashMaps);
     }
 }

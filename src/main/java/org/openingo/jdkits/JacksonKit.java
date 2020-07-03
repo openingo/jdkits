@@ -29,9 +29,11 @@ package org.openingo.jdkits;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,8 +45,8 @@ public final class JacksonKit {
 
     private static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
-        objectMapper.configure(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER, true);
+        objectMapper.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true);
+        objectMapper.configure(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER.mappedFeature(), true);
         return objectMapper;
     }
 
@@ -118,5 +120,14 @@ public final class JacksonKit {
 
     public static <K, V> Map<K, V> toMap(String json) {
         return toObj(json, Map.class);
+    }
+
+    /**
+     * 转化为List< Map< K, Object>>
+     * @param json
+     * @param <K>
+     */
+    public static <K> List<Map<K, Object>> toMapList(String json) {
+        return toObj(json, List.class);
     }
 }
