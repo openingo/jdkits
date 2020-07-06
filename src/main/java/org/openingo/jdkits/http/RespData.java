@@ -111,9 +111,12 @@ public final class RespData extends HashMap<String, Object> {
 
 	/**
 	 * Get Current Request's response status code
-	 * @return response status code
+	 * @return response status code, <tt>'unset'</tt> if {@linkplain Config#SM_ONLY} is true
 	 */
 	public String getSc() {
+		if (Config.SM_ONLY) {
+			return Config.UNSET_SC;
+		}
 		return this.get(Config.SC_KEY).toString();
 	}
 
@@ -133,7 +136,7 @@ public final class RespData extends HashMap<String, Object> {
 		return (T)this.get(Config.DATA_KEY);
 	}
 
-	public static class Config {
+	public final static class Config {
 		/**
 		 * Status code key, default 'sc'
 		 */
@@ -168,5 +171,10 @@ public final class RespData extends HashMap<String, Object> {
 		 * only contains status message
 		 */
 		public static boolean SM_ONLY = false;
+
+		/**
+		 * 'unset' status code
+		 */
+		public static final String UNSET_SC = "unset";
 	}
 }
