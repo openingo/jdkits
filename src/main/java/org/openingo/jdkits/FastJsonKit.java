@@ -31,6 +31,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
+import com.beust.jcommander.internal.Lists;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -74,7 +75,11 @@ public final class FastJsonKit {
      * @param json
      */
     public static <K, V> Map<K, V> toMap(String json) {
-        return FastJsonKit.toObj(json, Map.class);
+        Map<K, V> aMap = FastJsonKit.toObj(json, Map.class);
+        if (ValidateKit.isNull(aMap)) {
+            aMap = new HashMap<>();
+        }
+        return aMap;
     }
 
     /**
@@ -84,7 +89,7 @@ public final class FastJsonKit {
      * @param <T>
      */
     public static <T> List<T> toList(String json, Class<T> clazz) {
-        return JSONArray.parseArray(json, clazz);
+        return ListKit.emptyArrayListIfNull(JSONArray.parseArray(json, clazz));
     }
 
     /**
@@ -94,7 +99,7 @@ public final class FastJsonKit {
      * @param <T>
      */
     public static <T> List<T[]> to2DList(String json, Class<T[]> clazz) {
-        return JSONArray.parseArray(json, clazz);
+        return ListKit.emptyArrayListIfNull(JSONArray.parseArray(json, clazz));
     }
 
     /**
@@ -103,6 +108,6 @@ public final class FastJsonKit {
      * @param <K>
      */
     public static <K> List<Map<K, Object>> toMapList(String json) {
-        return toObj(json, List.class);
+        return ListKit.emptyArrayListIfNull(toObj(json, List.class));
     }
 }

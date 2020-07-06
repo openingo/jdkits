@@ -66,7 +66,7 @@ public class ListKit {
      * @return
      */
     public static <T> List<T> emptyIfNull(final List<T> list) {
-        return ValidateKit.isNull(list) ? emptyList() : list;
+        return defaultIfNull(list, emptyList());
     }
 
     /**
@@ -76,9 +76,16 @@ public class ListKit {
      * @return
      */
     public static <T> List<T> emptyArrayListIfNull(final List<T> list) {
-        return ValidateKit.isNull(list) ? emptyArrayList() : list;
+        return defaultIfNull(list, emptyArrayList());
     }
 
+    /**
+     * if the list is null or empty, return a default list
+     * @param list
+     * @param defaultList
+     * @param <T>
+     * @return list or default list when list is null or empty.
+     */
     public static <T> List<T> defaultIfNull(final List<T> list, final List<T> defaultList) {
         return ValidateKit.isNull(list) ? defaultList : list;
     }

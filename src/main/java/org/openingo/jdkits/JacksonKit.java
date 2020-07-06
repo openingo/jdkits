@@ -33,6 +33,7 @@ import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -119,7 +120,11 @@ public final class JacksonKit {
     }
 
     public static <K, V> Map<K, V> toMap(String json) {
-        return toObj(json, Map.class);
+        Map<K, V> aMap = toObj(json, Map.class);
+        if (ValidateKit.isNull(aMap)) {
+            aMap = new HashMap<>();
+        }
+        return aMap;
     }
 
     /**
@@ -128,6 +133,6 @@ public final class JacksonKit {
      * @param <K>
      */
     public static <K> List<Map<K, Object>> toMapList(String json) {
-        return toObj(json, List.class);
+        return ListKit.emptyArrayListIfNull(toObj(json, List.class));
     }
 }
