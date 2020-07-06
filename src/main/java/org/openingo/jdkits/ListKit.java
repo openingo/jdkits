@@ -27,10 +27,7 @@
 
 package org.openingo.jdkits;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * List Kit
@@ -44,6 +41,15 @@ public class ListKit {
      */
     public static <T> List<T> emptyArrayList() {
         return new ArrayList<>();
+    }
+
+    /**
+     * Constructs an empty list with the specified initial capacity.
+     *
+     * @param  initialCapacity  the initial capacity of the list
+     */
+    public static <T> List<T> emptyArrayList(int initialCapacity) {
+        return new ArrayList<>(initialCapacity);
     }
 
     /**
@@ -61,6 +67,16 @@ public class ListKit {
      */
     public static <T> List<T> emptyIfNull(final List<T> list) {
         return ValidateKit.isNull(list) ? emptyList() : list;
+    }
+
+    /**
+     * 如果list 为null 返回一个emptyArrayList
+     * @param list
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> emptyArrayListIfNull(final List<T> list) {
+        return ValidateKit.isNull(list) ? emptyArrayList() : list;
     }
 
     public static <T> List<T> defaultIfNull(final List<T> list, final List<T> defaultList) {
@@ -120,7 +136,6 @@ public class ListKit {
      * @param list2
      * @param opsEnum
      * @param <T>
-     * @return
      */
     private static <T> List<T> listOps(final List<T> list1, final List<T> list2, ListOpsEnum opsEnum) {
         if (ValidateKit.isAllNull(list1, list1)) {
@@ -216,13 +231,17 @@ public class ListKit {
      * @param <T>
      * @return list移除removingList中元素后剩余的元素集合
      */
-    public static <T> List<T> removeAll(final List<T> list, final List<T> removingList) {
-        list.removeAll(removingList);
-        return list;
+    public static <T> boolean removeAll(List<T> list, final Collection<?> removingList) {
+        AssertKit.notNull(list, "list is null.");
+        boolean ret = true;
+        if (ValidateKit.isNotNull(removingList)) {
+            ret = list.removeAll(removingList);
+        }
+        return ret;
     }
 
     /**
-     * 线程安全的List
+     * Synchronized List
      * @param list
      * @param <T>
      */
@@ -233,12 +252,12 @@ public class ListKit {
     }
 
     /**
-     * 判断list是否为Null
+     * validate list is Null or not Null
      * @param list
      * @param <T>
-     * @return true为空，false不为空
+     * @return <tt>true</tt> if this list is Null.
      */
-    public static <T> Boolean isNull(final List<T> list) {
+    public static <T> boolean isNull(final List<T> list) {
         return ValidateKit.isNull(list);
     }
 
@@ -248,7 +267,7 @@ public class ListKit {
      * @param <T>
      * @return true为空，false不为空
      */
-    public static <T> Boolean isEmpty(final List<T> list) {
+    public static <T> boolean isEmpty(final List<T> list) {
         return isNull(list) || list.isEmpty();
     }
 
@@ -258,7 +277,7 @@ public class ListKit {
      * @param <T>
      * @return true只有一个元素，false多个元素或list为空
      */
-    public static <T> Boolean hasOneElement(final List<T> list) {
+    public static <T> boolean hasOneElement(final List<T> list) {
         validateList(list);
 
         return (list.size() == 1);
@@ -270,7 +289,7 @@ public class ListKit {
      * @param <T>
      * @return true只有一个元素，false多个元素或list为空
      */
-    public static <T> Boolean hasManyElement(final List<T> list) {
+    public static <T> boolean hasManyElement(final List<T> list) {
         validateList(list);
 
         return (list.size() > 1);
@@ -279,12 +298,45 @@ public class ListKit {
     /**
      * replace一个索引对应的元素
      * @param list
-     * @param idx
+     * @param index
      * @param obj
      * @param <T>
      */
-    public static <T> void replace(List<T> list, Integer idx, T obj) {
-        AssertKit.isTrue(idx < list.size() && idx >= 0, "索引不合法。");
-        list.set(idx, obj);
+    public static <T> void replace(final List<T> list, int index, T obj) {
+        AssertKit.isTrue(index < list.size() && index >= 0, "索引不合法。");
+        list.set(index, obj);
+    }
+
+    /**
+     * Rewrite {@linkplain List#addAll(Collection)}, check the specified collection
+     * @param list
+     * @param collection
+     * @param <T>
+     * @return <tt>true</tt> if this list changed as a result of the call
+     */
+    public static <T> boolean addAll(final List<T> list, final Collection<T> collection){
+        AssertKit.notNull(list, "原始list不能为空。");
+        boolean ret = true;
+        if (ValidateKit.isNotNull(collection)) {
+            ret = list.addAll(collection);
+        }
+        return ret;
+    }
+
+    /**
+     * Rewrite {@linkplain List#addAll(int, Collection)}, check the specified collection
+     * @param list
+     * @param index
+     * @param collection
+     * @param <T>
+     * @return <tt>true</tt> if this list changed as a result of the call
+     */
+    public static <T> boolean addAll(final List<T> list, final int index, final Collection<T> collection){
+        AssertKit.notNull(list, "原始list不能为空。");
+        boolean ret = true;
+        if (ValidateKit.isNotNull(collection)) {
+            ret = list.addAll(index, collection);
+        }
+        return ret;
     }
 }

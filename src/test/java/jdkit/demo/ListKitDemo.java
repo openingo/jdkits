@@ -51,10 +51,10 @@ public class ListKitDemo {
         b.add("a3");
         b.add("b6");
 
-        System.out.println(ListKit.minus(a, b));
-        System.out.println(a.removeAll(b)+"aa"+a);
-
-        System.out.println(ListKit.removeAll(a, b));
+//        System.out.println(ListKit.minus(a, b));
+//        System.out.println(a.removeAll(b)+"aa"+a);
+//
+//        System.out.println(ListKit.removeAll(a, b));
 
 //        List<String> ret = ListKit.emptyArrayList();
 //
@@ -78,5 +78,10 @@ public class ListKitDemo {
 //        a = ListKit.reverse(a);
 //
 //        System.out.println(a);
+
+        ListKit.replace(a, 0, "zczz");
+        ListKit.addAll(a, b);
+
+        System.out.println(a);
     }
 }
