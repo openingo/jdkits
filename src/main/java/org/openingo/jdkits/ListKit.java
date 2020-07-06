@@ -216,7 +216,7 @@ public class ListKit {
      * @param <T>
      */
     private static <T> void validateList(final List<T> list) {
-        AssertKit.notNull(list, "当前操作list不能为null.");
+        AssertKit.isTrue(null != list, "list is null.");
     }
 
     /**
@@ -238,8 +238,8 @@ public class ListKit {
      * @param <T>
      * @return list移除removingList中元素后剩余的元素集合
      */
-    public static <T> boolean removeAll(List<T> list, final Collection<?> removingList) {
-        AssertKit.notNull(list, "list is null.");
+    public static <T> boolean removeAll(final List<T> list, final Collection<?> removingList) {
+        validateList(list);
         boolean ret = true;
         if (ValidateKit.isNotNull(removingList)) {
             ret = list.removeAll(removingList);
@@ -267,17 +267,7 @@ public class ListKit {
     public static <T> boolean isNull(final List<T> list) {
         return ValidateKit.isNull(list);
     }
-
-    /**
-     * 判断list是否为Empty
-     * @param list
-     * @param <T>
-     * @return true为空，false不为空
-     */
-    public static <T> boolean isEmpty(final List<T> list) {
-        return isNull(list) || list.isEmpty();
-    }
-
+    
     /**
      * 判断list是否只有一个元素
      * @param list
@@ -322,7 +312,7 @@ public class ListKit {
      * @return <tt>true</tt> if this list changed as a result of the call
      */
     public static <T> boolean addAll(final List<T> list, final Collection<T> collection){
-        AssertKit.notNull(list, "原始list不能为空。");
+        validateList(list);
         boolean ret = true;
         if (ValidateKit.isNotNull(collection)) {
             ret = list.addAll(collection);
@@ -339,7 +329,7 @@ public class ListKit {
      * @return <tt>true</tt> if this list changed as a result of the call
      */
     public static <T> boolean addAll(final List<T> list, final int index, final Collection<T> collection){
-        AssertKit.notNull(list, "原始list不能为空。");
+        validateList(list);
         boolean ret = true;
         if (ValidateKit.isNotNull(collection)) {
             ret = list.addAll(index, collection);
