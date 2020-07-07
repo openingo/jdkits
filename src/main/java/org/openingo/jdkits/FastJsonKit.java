@@ -75,11 +75,19 @@ public final class FastJsonKit {
      * @param json
      */
     public static <K, V> Map<K, V> toMap(String json) {
-        Map<K, V> aMap = FastJsonKit.toObj(json, Map.class);
+        Map<K, V> aMap = toObj(json, Map.class);
         if (ValidateKit.isNull(aMap)) {
             aMap = new HashMap<>();
         }
         return aMap;
+    }
+
+    /**
+     * 转化为Map
+     * @param obj
+     */
+    public static <K, V> Map<K, V> toMap(Object obj) {
+        return toMap(toJson(obj));
     }
 
     /**
