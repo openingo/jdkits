@@ -25,7 +25,9 @@
  * SOFTWARE.
  */
 
-package org.openingo.jdkits;
+package org.openingo.jdkits.http;
+
+import org.openingo.jdkits.StrKit;
 
 import javax.net.ssl.*;
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +53,7 @@ public final class HttpKit {
      * https 域名校验
      */
     private static class TrustAnyHostnameVerifier implements HostnameVerifier {
+        @Override
         public boolean verify(String hostname, SSLSession session) {
             return true;
         }
@@ -60,11 +63,14 @@ public final class HttpKit {
      * https 证书管理
      */
     private static class TrustAnyTrustManager implements X509TrustManager {
+        @Override
         public X509Certificate[] getAcceptedIssuers() {
             return null;
         }
+        @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
         }
+        @Override
         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
         }
     }
