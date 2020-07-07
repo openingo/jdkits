@@ -267,7 +267,7 @@ public class ListKit {
     public static <T> boolean isNull(final List<T> list) {
         return ValidateKit.isNull(list);
     }
-    
+
     /**
      * 判断list是否只有一个元素
      * @param list

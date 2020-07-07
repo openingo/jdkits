@@ -133,7 +133,11 @@ public final class Base64Kit {
     interface IBase64 {
         String encode(byte[] value);
 
+        byte[] encode(String value);
+
         byte[] decode(String value);
+
+        byte[] decode(byte[] value);
     }
 
     static class Java8Base64 implements IBase64 {
@@ -143,7 +147,17 @@ public final class Base64Kit {
         }
 
         @Override
+        public byte[] encode(String value) {
+            return java.util.Base64.getEncoder().encode(value.getBytes());
+        }
+
+        @Override
         public byte[] decode(String value) {
+            return java.util.Base64.getDecoder().decode(value);
+        }
+
+        @Override
+        public byte[] decode(byte[] value) {
             return java.util.Base64.getDecoder().decode(value);
         }
     }
@@ -153,8 +167,18 @@ public final class Base64Kit {
             return javax.xml.bind.DatatypeConverter.printBase64Binary(data);
         }
 
+        @Override
+        public byte[] encode(String value) {
+            return javax.xml.bind.DatatypeConverter.printBase64Binary(value.getBytes()).getBytes();
+        }
+
         public byte[] decode(String base64) {
             return javax.xml.bind.DatatypeConverter.parseBase64Binary(base64);
+        }
+
+        @Override
+        public byte[] decode(byte[] value) {
+            return javax.xml.bind.DatatypeConverter.parseBase64Binary(new String(value));
         }
     }
 }

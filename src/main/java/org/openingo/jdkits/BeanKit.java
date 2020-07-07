@@ -76,7 +76,7 @@ public final class BeanKit {
      */
     public static <T> List<Map<String, Object>> beansToMaps(List<T> beans) {
         if (ValidateKit.isEmpty(beans)) {
-            return Collections.emptyList();
+            return ListKit.emptyList();
         }
         return beans.stream().map(BeanKit::beanToMap).collect(toList());
     }
@@ -90,7 +90,7 @@ public final class BeanKit {
      */
     public static <T> List<T> mapsToBeans(List<Map<String, Object>> maps, Class<T> clazz) {
         if (ValidateKit.isEmpty(maps)) {
-            return Collections.emptyList();
+            return ListKit.emptyList();
         }
         return maps.stream().map(e -> mapToBean(e, clazz)).collect(toList());
     }
