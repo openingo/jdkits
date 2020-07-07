@@ -134,7 +134,7 @@ public final class JacksonKit {
     public static <K, V> Map<K, V> toMap(Object obj) {
         return toMap(toJson(obj));
     }
-    
+
     /**
      * 转化为List< Map< K, Object>>
      * @param json
