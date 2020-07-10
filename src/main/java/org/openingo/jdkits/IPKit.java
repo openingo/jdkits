@@ -41,6 +41,7 @@ public final class IPKit {
     private IPKit(){}
 
     private static final String OBTAIN_IP_ERROR = "获取IP信息失败";
+    private static final String LOCALHOST = "127.0.0.1";
 
     /**
      * 获取服务器IP地址
@@ -93,7 +94,7 @@ public final class IPKit {
      */
     public static String getRequestIP(HttpServletRequest request) {
         String unknown = "unknown";
-        String ipAddress;
+        String ipAddress = LOCALHOST;
         ipAddress = request.getHeader("x-forwarded-for");
         if (ipAddress == null || ipAddress.length() == 0 || unknown.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("Proxy-Client-IP");
@@ -110,6 +111,9 @@ public final class IPKit {
             if (ipAddress.indexOf(",") > 0) {
                 ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
             }
+        }
+        if ("0:0:0:0:0:0:0:1".equals(ipAddress)) {
+            ipAddress = LOCALHOST;
         }
         return ipAddress;
     }
