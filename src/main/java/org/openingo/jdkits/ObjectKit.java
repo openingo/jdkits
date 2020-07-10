@@ -37,6 +37,8 @@ import java.util.Map;
  */
 public final class ObjectKit {
 
+    private ObjectKit(){}
+
     /**
      * 对象转数组
      * @param obj

@@ -34,6 +34,8 @@ package org.openingo.jdkits;
  */
 public final class AssertKit {
 
+    private AssertKit(){}
+
     /**
      * 断言当前为true
      * @param expression

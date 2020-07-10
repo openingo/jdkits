@@ -37,6 +37,8 @@ import java.util.UUID;
  */
 public final class RandomKit {
 
+    private RandomKit(){}
+
     /**
      * 随机范围内的数
      * @param min

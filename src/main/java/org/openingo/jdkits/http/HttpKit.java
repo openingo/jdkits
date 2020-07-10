@@ -49,6 +49,9 @@ import java.util.Map;
  */
 public final class HttpKit {
 
+    private HttpKit() {
+    }
+
     /**
      * https 域名校验
      */

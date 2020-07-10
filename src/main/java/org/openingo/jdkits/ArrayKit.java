@@ -36,6 +36,8 @@ import java.util.*;
  */
 public final class ArrayKit {
 
+    private ArrayKit(){}
+
     /**
      * 返回一个空数组
      * @param size

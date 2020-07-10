@@ -44,6 +44,8 @@ import java.util.Map;
  */
 public final class JacksonKit {
 
+    private JacksonKit(){}
+
     private static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true);

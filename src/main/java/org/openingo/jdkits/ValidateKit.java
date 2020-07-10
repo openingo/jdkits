@@ -38,6 +38,8 @@ import java.util.Map;
  */
 public final class ValidateKit {
 
+    private ValidateKit(){}
+
     /**
      * 是否为null
      * @param obj:List,Map,String,Object

@@ -34,6 +34,8 @@ package org.openingo.jdkits;
  */
 public final class ExceptionKit {
 
+    private ExceptionKit(){}
+
     /**
      * 抛出IllegalArgumentException
      * @param message

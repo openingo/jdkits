@@ -45,6 +45,8 @@ import javax.crypto.Cipher;
  */
 public final class RSAKit {
 
+    private RSAKit(){}
+
     /**
      * 非对称加密密钥算法
      */

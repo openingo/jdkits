@@ -38,6 +38,8 @@ import java.util.zip.*;
  */
 public final class CompressKit {
 
+    private CompressKit(){}
+
     /**
      * zip文件压缩
      * @param inputFile 待压缩文件夹/文件名

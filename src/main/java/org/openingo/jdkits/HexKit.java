@@ -34,6 +34,8 @@ package org.openingo.jdkits;
  */
 public final class HexKit {
 
+    private HexKit(){}
+
     public static byte[] HexStringToBytes(String hexString) {
         if (StrKit.isBlank(hexString)) {
             return null;

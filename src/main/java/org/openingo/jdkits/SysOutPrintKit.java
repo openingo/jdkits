@@ -58,6 +58,8 @@ import java.util.*;
  */
 public final class SysOutPrintKit {
 
+    private SysOutPrintKit(){}
+
     public static <T> void print(String format, T... args) {
         System.out.print(String.format(format, args));
     }

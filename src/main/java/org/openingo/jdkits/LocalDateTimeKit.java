@@ -40,6 +40,8 @@ import java.time.temporal.TemporalUnit;
  */
 public final class LocalDateTimeKit {
 
+    private LocalDateTimeKit(){}
+
     /**
      * 日期之后的某个日期
      * @param dateTime

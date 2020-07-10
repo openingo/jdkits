@@ -44,6 +44,8 @@ import java.util.Map;
  */
 public final class FastJsonKit {
 
+    private FastJsonKit(){}
+
     /**
      * 转化为Json
      * @param obj

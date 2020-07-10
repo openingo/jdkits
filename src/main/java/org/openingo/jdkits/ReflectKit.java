@@ -37,6 +37,8 @@ import java.lang.reflect.Parameter;
  */
 public final class ReflectKit {
 
+    private ReflectKit(){}
+
     public static Object newInstance(Class<?> clazz) {
         try {
             return clazz.newInstance();

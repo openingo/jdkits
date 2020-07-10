@@ -34,6 +34,8 @@ package org.openingo.jdkits;
  */
 public final class SysKit {
 
+    private SysKit(){}
+
     /**
      * Windows 系统
      */

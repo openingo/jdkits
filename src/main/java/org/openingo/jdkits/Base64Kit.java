@@ -36,6 +36,8 @@ import java.nio.charset.Charset;
  */
 public final class Base64Kit {
 
+    private Base64Kit(){}
+
     public static final Charset UTF_8 = Charset.forName("UTF-8");
     private static IBase64 delegate;
 

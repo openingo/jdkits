@@ -32,7 +32,9 @@ package org.openingo.jdkits;
  *
  * @author Qicz
  */
-public final class StrKit {
+public final class StrKit implements StringPoolKit{
+
+    private StrKit(){}
 
     /**
      * 首字母变小写

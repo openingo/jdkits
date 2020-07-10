@@ -36,6 +36,8 @@ import java.io.UnsupportedEncodingException;
  */
 public final class EncodingKit {
 
+    private EncodingKit(){}
+
     /** 7位ASCII字符，也叫作ISO646-US、Unicode字符集的基本拉丁块 */
     public static final String US_ASCII = "US-ASCII";
 

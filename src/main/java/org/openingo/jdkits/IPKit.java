@@ -38,6 +38,8 @@ import java.util.Enumeration;
  */
 public final class IPKit {
 
+    private IPKit(){}
+
     private static final String OBTAIN_IP_ERROR = "获取IP信息失败";
 
     /**
@@ -89,7 +91,7 @@ public final class IPKit {
     /**
      * Get Request Ip Addr
      */
-    public String getRequestIP(HttpServletRequest request) {
+    public static String getRequestIP(HttpServletRequest request) {
         String unknown = "unknown";
         String ipAddress;
         ipAddress = request.getHeader("x-forwarded-for");

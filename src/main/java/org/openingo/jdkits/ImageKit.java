@@ -42,6 +42,8 @@ import javax.imageio.ImageIO;
  */
 public final class ImageKit {
 
+    private ImageKit(){}
+
     /**
      * 生成形如data:image/jpeg;base64,iVBORw0KGgoA……的字符串，将图片文件Data URI化
      *

@@ -48,7 +48,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author Qicz
  */
 
-public class SystemClockKit {
+public final class SystemClockKit {
 
     private final long period;
     private final AtomicLong now;

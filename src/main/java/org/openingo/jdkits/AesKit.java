@@ -40,6 +40,8 @@ import java.util.Arrays;
  */
 public final class AesKit {
 
+    private AesKit(){}
+
     private static final Charset UTF_8 = Charset.forName("UTF-8");
 
     public static String genAesKey(){

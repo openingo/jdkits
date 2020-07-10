@@ -36,6 +36,8 @@ import java.util.*;
  */
 public class ListKit {
 
+    private ListKit(){}
+
     /**
      * 返回一个空的ArrayList
      */

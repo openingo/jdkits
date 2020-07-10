@@ -41,6 +41,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class IdKit {
 
+    private IdKit(){}
+
     /**
      * 主机和进程的机器码
      */

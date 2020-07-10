@@ -37,6 +37,8 @@ import java.util.*;
  */
 public final class DDLKit {
 
+    private DDLKit(){}
+
     public static final String BIGINT = "bigint";
     public static final String VARCHAR = "varchar";
     public static final String TEXT = "text";

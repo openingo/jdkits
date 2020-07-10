@@ -37,6 +37,8 @@ import java.io.InputStream;
  */
 public final class PathKit {
 
+    private PathKit(){}
+
     public static String getPath(Class clazz) {
         String path = clazz.getResource("").getPath();
         return new File(path).getAbsolutePath();

@@ -37,6 +37,8 @@ import java.util.Map;
  */
 public final class ObjTypeKit {
 
+    private ObjTypeKit(){}
+
     public enum TypeSelector {
         MYSQL_TYPE,
         JAVA_TYPE

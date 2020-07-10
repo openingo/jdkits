@@ -34,6 +34,8 @@ package org.openingo.jdkits;
  */
 public final class IntKit {
 
+    private IntKit(){}
+
     public static String toHex(Integer i) {
         return Integer.toHexString(i);
     }

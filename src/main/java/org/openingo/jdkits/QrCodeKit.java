@@ -45,6 +45,8 @@ import java.util.Map;
  */
 public final class QrCodeKit {
 
+    private QrCodeKit(){}
+
     static class QrCode {
         private String content;
         private int width;

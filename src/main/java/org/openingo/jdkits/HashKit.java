@@ -37,6 +37,8 @@ import java.security.MessageDigest;
  */
 public final class HashKit {
 
+    private HashKit(){}
+
     public static final long FNV_OFFSET_BASIS_64 = 0xcbf29ce484222325L;
     public static final long FNV_PRIME_64 = 0x100000001b3L;
 

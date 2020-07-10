@@ -37,6 +37,8 @@ import java.math.BigInteger;
  */
 public final class NumberKit {
 
+    private NumberKit(){}
+
     public static Boolean isByte(Object obj) {
         return (obj instanceof Byte);
     }

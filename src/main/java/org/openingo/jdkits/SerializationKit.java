@@ -36,6 +36,8 @@ import java.io.*;
  */
 public class SerializationKit {
 
+    private SerializationKit(){}
+
     /**
      * Deep clone an {@code Object} using serialization.
      * <p>This is many times slower than writing clone methods by hand

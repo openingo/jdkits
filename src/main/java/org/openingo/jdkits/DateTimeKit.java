@@ -41,6 +41,8 @@ import java.util.Date;
  */
 public final class DateTimeKit {
 
+    private DateTimeKit(){}
+
     /**
      * yyyy-MM-dd HH:mm:ss
      */
