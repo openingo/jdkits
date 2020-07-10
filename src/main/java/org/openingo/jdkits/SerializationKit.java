@@ -34,7 +34,7 @@ import java.io.*;
  * <p> copy from spring-core#org.springframework.util.SerializationKit version 5.2.2 </p>
  *
  */
-public class SerializationKit {
+public final class SerializationKit {
 
     private SerializationKit(){}
 

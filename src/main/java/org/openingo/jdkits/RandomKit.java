@@ -39,6 +39,9 @@ public final class RandomKit {
 
     private RandomKit(){}
 
+    private static final Integer NUMBERS = 1;
+    private static final Integer CHAR_AND_NUMBERS = 2;
+
     /**
      * 随机范围内的数
      * @param min
@@ -74,7 +77,7 @@ public final class RandomKit {
      * 获取随机数字
      */
     public static Integer nInt(Integer randomLen) {
-        String random = random(randomLen, DataType.Numbers);
+        String random = random(randomLen, RandomKit.NUMBERS);
         random = random.length() < randomLen ? random+"0":random;
         return Integer.parseInt(random);
     }
@@ -90,7 +93,7 @@ public final class RandomKit {
      * 获取随机字符串（大写）
      */
     public static String ucStr(Integer randomLen) {
-        String random = random(randomLen, DataType.CharAndNumbers).toUpperCase();
+        String random = random(randomLen, RandomKit.CHAR_AND_NUMBERS).toUpperCase();
         return random.length() < randomLen ? (random+"0") : random;
     }
 
@@ -105,19 +108,15 @@ public final class RandomKit {
      * 获取随机字符串（小写）
      */
     public static String lcStr(Integer randomLen) {
-        String random = random(randomLen, DataType.CharAndNumbers).toLowerCase();
+        String random = random(randomLen, RandomKit.CHAR_AND_NUMBERS).toLowerCase();
         return random.length() < randomLen ? (random+"0") : random;
     }
 
-    enum DataType {
-        Numbers,
-        CharAndNumbers
-    }
 
     private static String random(Integer randomLen,
-                                 DataType type){
+                                 Integer type){
         String randomRet = "";
-        String dataTable = (type == DataType.Numbers
+        String dataTable = ( RandomKit.NUMBERS.equals(type)
                 ? "1234567890"
                 : "1234567890abcdefghijkmnpqrstuvwxyz");
         int dataTableLen = dataTable.length();

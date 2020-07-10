@@ -34,7 +34,7 @@ import java.util.*;
  *
  * @author Qicz
  */
-public class ListKit {
+public final class ListKit {
 
     private ListKit(){}
 
@@ -133,7 +133,7 @@ public class ListKit {
     /**
      * ListOps类型
      */
-    private static enum ListOpsEnum {
+    enum ListOpsEnum {
         UNION,// 合集
         INTERSECT, // 交集
         MINUS; // 差集

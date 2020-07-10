@@ -1,6 +1,5 @@
 package jdkit.demo;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.openingo.jdkits.FastJsonKit;
