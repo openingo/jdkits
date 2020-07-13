@@ -176,5 +176,10 @@ public final class RespData extends HashMap<String, Object> {
 		 * 'unset' status code
 		 */
 		public static final Object UNSET_SC = "unset";
+
+		/**
+		 * friendly failure message, default "The system is temporarily unavailable"
+		 */
+		public static String FRIENDLY_FAILURE_MESSAGE = "The system is temporarily unavailable";
 	}
 }
