@@ -94,8 +94,7 @@ public final class IPKit {
      */
     public static String getRequestIP(HttpServletRequest request) {
         String unknown = "unknown";
-        String ipAddress = LOCALHOST;
-        ipAddress = request.getHeader("x-forwarded-for");
+        String ipAddress = request.getHeader("x-forwarded-for");
         if (ipAddress == null || ipAddress.length() == 0 || unknown.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("Proxy-Client-IP");
         }
@@ -111,12 +110,8 @@ public final class IPKit {
         if (ipAddress == null || ipAddress.length() == 0 || unknown.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getRemoteAddr();
         }
-        // split with ','
-        if (ipAddress != null && ipAddress.length() > 15) {
-            // "***.***.***.***".length()= 15
-            if (ipAddress.indexOf(",") > 0) {
-                ipAddress = ipAddress.substring(0, ipAddress.indexOf(","));
-            }
+        if (ipAddress != null && ipAddress.indexOf(",") != -1) {
+            ipAddress = ipAddress.substring(0, ipAddress.indexOf(",")).trim();
         }
         if ("0:0:0:0:0:0:0:1".equals(ipAddress)) {
             ipAddress = LOCALHOST;

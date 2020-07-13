@@ -183,4 +183,32 @@ public final class ObjectKit {
     public <T extends Serializable> T clone(T obj) {
         return SerializationKit.clone(obj);
     }
+
+    public static Integer toInteger(Object obj) {
+        if (ValidateKit.isNull(obj)) {
+            return 0;
+        }
+        return StrKit.toInteger(obj.toString());
+    }
+
+    public static Long toLong(Object obj) {
+        if (ValidateKit.isNull(obj)) {
+            return 0L;
+        }
+        return StrKit.toLong(obj.toString());
+    }
+
+    public static Double toDouble(Object obj) {
+        if (ValidateKit.isNull(obj)) {
+            return 0.0;
+        }
+        return StrKit.toDouble(obj.toString());
+    }
+
+    public static Float toFloat(Object obj) {
+        if (ValidateKit.isNull(obj)) {
+            return 0.0f;
+        }
+        return StrKit.toFloat(obj.toString());
+    }
 }

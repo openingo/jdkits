@@ -189,4 +189,19 @@ public final class StrKit implements StringPoolKit {
         return java.util.UUID.randomUUID().toString().replace("-", "");
     }
 
+    public static Integer toInteger(String obj) {
+        return Integer.valueOf(obj);
+    }
+
+    public static Long toLong(String obj) {
+        return Long.valueOf(obj);
+    }
+
+    public static Double toDouble(String obj) {
+        return Double.valueOf(obj);
+    }
+
+    public static Float toFloat(String obj) {
+        return Float.valueOf(obj);
+    }
 }

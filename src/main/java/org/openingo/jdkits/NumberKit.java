@@ -133,4 +133,20 @@ public final class NumberKit {
         }
         return hexString;
     }
+
+    public static Integer toInteger(Object obj) {
+        return ObjectKit.toInteger(obj);
+    }
+
+    public static Long toLong(Object obj) {
+        return ObjectKit.toLong(obj);
+    }
+
+    public static Double toDouble(Object obj) {
+        return ObjectKit.toDouble(obj);
+    }
+
+    public static Float toFloat(Object obj) {
+        return ObjectKit.toFloat(obj);
+    }
 }
