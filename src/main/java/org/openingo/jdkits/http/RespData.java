@@ -97,14 +97,14 @@ public final class RespData extends HashMap<String, Object> {
 		
 	}
 	
-	private RespData(String sc, String sm) {
+	private RespData(Object sc, String sm) {
 		if (!Config.SM_ONLY) {
 			this.put(Config.SC_KEY, sc);
 		}
 		this.put(Config.SM_KEY, sm);
 	}
 	
-	private RespData(String sc, String sm, Object data) {
+	private RespData(Object sc, String sm, Object data) {
 		this(sc, sm);
 		this.put(Config.DATA_KEY, data);
 	}
@@ -113,7 +113,7 @@ public final class RespData extends HashMap<String, Object> {
 	 * Get Current Request's response status code
 	 * @return response status code, <tt>'unset'</tt> if {@linkplain Config#SM_ONLY} is true
 	 */
-	public String getSc() {
+	public Object getSc() {
 		if (Config.SM_ONLY) {
 			return Config.UNSET_SC;
 		}
@@ -155,7 +155,7 @@ public final class RespData extends HashMap<String, Object> {
 		/**
 		 * success status code, default is 'success'.
 		 */
-		public static String SUCCESS_SC = "success";
+		public static Object SUCCESS_SC = "success";
 
 		/**
 		 * success status code, default is 'response successful'.
@@ -165,7 +165,7 @@ public final class RespData extends HashMap<String, Object> {
 		/**
 		 * failure status code, default is 'failure'.
 		 */
-		public static String FAILURE_SC = "failure";
+		public static Object FAILURE_SC = "failure";
 
 		/**
 		 * only contains status message
@@ -175,6 +175,6 @@ public final class RespData extends HashMap<String, Object> {
 		/**
 		 * 'unset' status code
 		 */
-		public static final String UNSET_SC = "unset";
+		public static final Object UNSET_SC = "unset";
 	}
 }
