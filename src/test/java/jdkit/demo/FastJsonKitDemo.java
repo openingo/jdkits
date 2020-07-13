@@ -1,8 +1,9 @@
 package jdkit.demo;
 
+import org.openingo.jdkits.FastJsonKit;
+
 import java.util.List;
 import java.util.Map;
-import org.openingo.jdkits.FastJsonKit;
 
 /**
  * FastJsonKitDemo

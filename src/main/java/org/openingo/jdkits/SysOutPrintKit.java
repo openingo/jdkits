@@ -27,7 +27,8 @@
 
 package org.openingo.jdkits;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * SysOutPrint Kit

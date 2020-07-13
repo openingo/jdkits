@@ -27,10 +27,10 @@
 
 package org.openingo.jdkits;
 
-import java.util.Collections;
+import net.sf.cglib.beans.BeanMap;
+
 import java.util.List;
 import java.util.Map;
-import net.sf.cglib.beans.BeanMap;
 
 import static java.util.stream.Collectors.toList;
 

@@ -27,12 +27,11 @@
 
 package jdkit.demo;
 
-import java.util.Map;
-
 import org.openingo.jdkits.JacksonKit;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * JasksonKit demo
