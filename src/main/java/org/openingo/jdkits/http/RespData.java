@@ -106,7 +106,9 @@ public final class RespData extends HashMap<String, Object> {
 	
 	private RespData(Object sc, String sm, Object data) {
 		this(sc, sm);
-		this.put(Config.DATA_KEY, data);
+		if (ValidateKit.isNotNull(data)) {
+			this.put(Config.DATA_KEY, data);
+		}
 	}
 
 	/**
@@ -133,6 +135,9 @@ public final class RespData extends HashMap<String, Object> {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getData() {
+		if (!this.containsKey(Config.DATA_KEY)) {
+			return null;
+		}
 		return (T)this.get(Config.DATA_KEY);
 	}
 
