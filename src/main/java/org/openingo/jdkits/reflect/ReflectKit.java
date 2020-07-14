@@ -25,21 +25,44 @@
  * SOFTWARE.
  */
 
-package jdkit.demo;
+package org.openingo.jdkits.reflect;
 
-import org.openingo.jdkits.collection.ArrayKit;
-import org.openingo.jdkits.sys.SysOutPrintKit;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 /**
- * 测试
+ * 反射工具 ReflectKit
  *
  * @author Qicz
  */
-public class ArrayKitDemo {
+public final class ReflectKit {
 
-    public static void main(String[] args) {
-        Object[] a = {"a", "b", "c", "f"};
-        Object[] b = {"a", "c", "d", "e"};
-        SysOutPrintKit.printArray(ArrayKit.removeAll(a, b));
+    private ReflectKit(){}
+
+    public static Object newInstance(Class<?> clazz) {
+        try {
+            return clazz.newInstance();
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getMethodSignature(Method method) {
+        StringBuilder ret = new StringBuilder()
+                .append(method.getDeclaringClass().getName())
+                .append(".")
+                .append(method.getName())
+                .append("(");
+
+        int index = 0;
+        Parameter[] paras = method.getParameters();
+        for (Parameter p : paras) {
+            if (index++ > 0) {
+                ret.append(", ");
+            }
+            ret.append(p.getParameterizedType().getTypeName());
+        }
+
+        return ret.append(")").toString();
     }
 }

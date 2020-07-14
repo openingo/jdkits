@@ -27,7 +27,7 @@
 
 package jdkit.demo;
 
-import org.openingo.jdkits.ValidateKit;
+import org.openingo.jdkits.validate.ValidateKit;
 
 /**
  * ValidateKitDemo

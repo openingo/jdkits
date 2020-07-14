@@ -27,7 +27,7 @@
 
 package jdkit.demo;
 
-import org.openingo.jdkits.RSAKit;
+import org.openingo.jdkits.encryption.RSAKit;
 
 /**
  * RSAKitDemo

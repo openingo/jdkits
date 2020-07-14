@@ -27,10 +27,10 @@
 
 package org.openingo.jdkits.idfactory;
 
-import org.openingo.jdkits.AssertKit;
-import org.openingo.jdkits.StringPoolKit;
-import org.openingo.jdkits.SystemClockKit;
-import org.openingo.jdkits.ValidateKit;
+import org.openingo.jdkits.lang.StringPoolKit;
+import org.openingo.jdkits.sys.SystemClockKit;
+import org.openingo.jdkits.validate.AssertKit;
+import org.openingo.jdkits.validate.ValidateKit;
 
 import java.lang.management.ManagementFactory;
 import java.net.InetAddress;

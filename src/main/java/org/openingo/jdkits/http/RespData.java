@@ -27,7 +27,7 @@
 
 package org.openingo.jdkits.http;
 
-import org.openingo.jdkits.ValidateKit;
+import org.openingo.jdkits.validate.ValidateKit;
 
 import java.util.HashMap;
 

@@ -27,7 +27,7 @@
 
 package jdkit.demo;
 
-import org.openingo.jdkits.QrCodeKit;
+import org.openingo.jdkits.image.QrCodeKit;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

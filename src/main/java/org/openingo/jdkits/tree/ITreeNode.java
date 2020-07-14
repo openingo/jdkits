@@ -25,21 +25,29 @@
  * SOFTWARE.
  */
 
-package jdkit.demo;
+package org.openingo.jdkits.tree;
 
-import org.openingo.jdkits.collection.ArrayKit;
-import org.openingo.jdkits.sys.SysOutPrintKit;
+import java.util.List;
 
 /**
- * 测试
+ * ITreeNode
  *
  * @author Qicz
  */
-public class ArrayKitDemo {
+public interface ITreeNode<E> {
 
-    public static void main(String[] args) {
-        Object[] a = {"a", "b", "c", "f"};
-        Object[] b = {"a", "c", "d", "e"};
-        SysOutPrintKit.printArray(ArrayKit.removeAll(a, b));
-    }
+    /**
+     * @return current node id
+     */
+    String nodeId();
+
+    /**
+     * @return current node parent id
+     */
+    String nodeParentId();
+
+    /**
+     * @param childNodes loading child nodes
+     */
+    void loadChildNodes(List<E> childNodes);
 }

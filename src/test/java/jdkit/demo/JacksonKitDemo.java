@@ -27,7 +27,7 @@
 
 package jdkit.demo;
 
-import org.openingo.jdkits.JacksonKit;
+import org.openingo.jdkits.json.JacksonKit;
 
 import java.util.ArrayList;
 import java.util.List;

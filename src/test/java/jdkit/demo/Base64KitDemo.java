@@ -27,9 +27,9 @@
 
 package jdkit.demo;
 
-import org.openingo.jdkits.AssertKit;
-import org.openingo.jdkits.Base64Kit;
-import org.openingo.jdkits.RandomKit;
+import org.openingo.jdkits.coding.Base64Kit;
+import org.openingo.jdkits.hash.RandomKit;
+import org.openingo.jdkits.validate.AssertKit;
 
 /**
  * Base64Kit Demo

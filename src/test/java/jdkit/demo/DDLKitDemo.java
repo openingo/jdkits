@@ -27,7 +27,7 @@
 
 package jdkit.demo;
 
-import org.openingo.jdkits.DDLKit;
+import org.openingo.jdkits.db.DDLKit;
 
 import java.util.ArrayList;
 import java.util.List;

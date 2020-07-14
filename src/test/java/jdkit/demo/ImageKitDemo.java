@@ -27,7 +27,7 @@
 
 package jdkit.demo;
 
-import org.openingo.jdkits.ImageKit;
+import org.openingo.jdkits.image.ImageKit;
 
 import java.io.File;
 import java.io.IOException;

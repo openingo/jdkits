@@ -28,7 +28,7 @@
 package org.openingo.jdkits.idfactory;
 
 
-import org.openingo.jdkits.StringPoolKit;
+import org.openingo.jdkits.lang.StringPoolKit;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

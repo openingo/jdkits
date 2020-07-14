@@ -25,21 +25,62 @@
  * SOFTWARE.
  */
 
-package jdkit.demo;
-
-import org.openingo.jdkits.collection.ArrayKit;
-import org.openingo.jdkits.sys.SysOutPrintKit;
+package org.openingo.jdkits.lang;
 
 /**
- * 测试
+ * Int Kit
  *
  * @author Qicz
  */
-public class ArrayKitDemo {
+public final class IntKit {
 
-    public static void main(String[] args) {
-        Object[] a = {"a", "b", "c", "f"};
-        Object[] b = {"a", "c", "d", "e"};
-        SysOutPrintKit.printArray(ArrayKit.removeAll(a, b));
+    private IntKit(){}
+
+    public static String toHex(Integer i) {
+        return Integer.toHexString(i);
+    }
+
+    public static String toHex(Short si) {
+        return Integer.toHexString(si);
+    }
+
+    public static String toHex(Byte bi) {
+        return Integer.toHexString(bi);
+    }
+
+    public static String toOctal(Integer i) {
+        return Integer.toOctalString(i);
+    }
+
+    public static String toOctal(Short si) {
+        return Integer.toOctalString(si);
+    }
+
+    public static String toOctal(Byte bi) {
+        return Integer.toOctalString(bi);
+    }
+
+    public static String toBinary(Integer i) {
+        return Integer.toBinaryString(i);
+    }
+
+    public static String toBinary(Short si) {
+        return Integer.toBinaryString(si);
+    }
+
+    public static String toBinary(Byte bi) {
+        return Integer.toBinaryString(bi);
+    }
+
+    public static Integer binaryToDecimal(String s) {
+        return strToDecimal(s, 2);
+    }
+
+    public static Integer octalToDecimal(String s) {
+        return strToDecimal(s, 8);
+    }
+
+    private static Integer strToDecimal(String s, int radix) {
+        return Integer.valueOf(s, radix);
     }
 }

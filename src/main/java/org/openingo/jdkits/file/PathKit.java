@@ -25,21 +25,45 @@
  * SOFTWARE.
  */
 
-package jdkit.demo;
+package org.openingo.jdkits.file;
 
-import org.openingo.jdkits.collection.ArrayKit;
-import org.openingo.jdkits.sys.SysOutPrintKit;
+import java.io.File;
+import java.io.InputStream;
 
 /**
- * 测试
+ * 路径工具 PathKit
  *
  * @author Qicz
  */
-public class ArrayKitDemo {
+public final class PathKit {
 
-    public static void main(String[] args) {
-        Object[] a = {"a", "b", "c", "f"};
-        Object[] b = {"a", "c", "d", "e"};
-        SysOutPrintKit.printArray(ArrayKit.removeAll(a, b));
+    private PathKit(){}
+
+    public static String getPath(Class clazz) {
+        String path = clazz.getResource("").getPath();
+        return new File(path).getAbsolutePath();
+    }
+
+    public static String getPath(Object object) {
+        String path = object.getClass().getResource("").getPath();
+        return new File(path).getAbsolutePath();
+    }
+
+    public static ClassLoader getClassLoader() {
+        ClassLoader ret = Thread.currentThread().getContextClassLoader();
+        return ret != null ? ret : PathKit.class.getClassLoader();
+    }
+
+    public static String getPackagePath(Object object) {
+        Package p = object.getClass().getPackage();
+        return p != null ? p.getName().replaceAll("\\.", "/") : "";
+    }
+
+    public static boolean isAbsolutePath(String path) {
+        return path.startsWith("/") || path.indexOf(':') == 1;
+    }
+
+    public static InputStream getResourceAsStream(String resource) {
+        return Thread.currentThread().getContextClassLoader().getResourceAsStream(resource);
     }
 }

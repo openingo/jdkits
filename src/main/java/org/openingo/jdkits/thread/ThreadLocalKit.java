@@ -25,21 +25,44 @@
  * SOFTWARE.
  */
 
-package jdkit.demo;
+package org.openingo.jdkits.thread;
 
-import org.openingo.jdkits.collection.ArrayKit;
-import org.openingo.jdkits.sys.SysOutPrintKit;
+import org.openingo.jdkits.validate.ValidateKit;
 
 /**
- * 测试
+ * ThreadLocalKit
  *
  * @author Qicz
  */
-public class ArrayKitDemo {
+public class ThreadLocalKit<T> {
 
-    public static void main(String[] args) {
-        Object[] a = {"a", "b", "c", "f"};
-        Object[] b = {"a", "c", "d", "e"};
-        SysOutPrintKit.printArray(ArrayKit.removeAll(a, b));
+    private final ThreadLocal<T> threadLocal = new ThreadLocal<>();
+
+    /**
+     * set to ThreadLocal
+     * if the t is <tt>null</tt> will remove before set.
+     * @param t
+     */
+    public void set(T t) {
+        if (ValidateKit.isNull(t)) {
+            this.remove();
+        }
+        this.threadLocal.set(t);
+    }
+
+    /**
+     * Returns last value and remove current ThreadLocal
+     * @return last value
+     */
+    public T get() {
+        try {
+            return this.threadLocal.get();
+        } finally {
+            this.remove();
+        }
+    }
+
+    private void remove() {
+        this.threadLocal.remove();
     }
 }

@@ -25,21 +25,51 @@
  * SOFTWARE.
  */
 
-package jdkit.demo;
-
-import org.openingo.jdkits.collection.ArrayKit;
-import org.openingo.jdkits.sys.SysOutPrintKit;
+package org.openingo.jdkits.sys;
 
 /**
- * 测试
+ * SysKit
  *
  * @author Qicz
  */
-public class ArrayKitDemo {
+public final class SysKit {
 
-    public static void main(String[] args) {
-        Object[] a = {"a", "b", "c", "f"};
-        Object[] b = {"a", "c", "d", "e"};
-        SysOutPrintKit.printArray(ArrayKit.removeAll(a, b));
+    private SysKit(){}
+
+    /**
+     * Windows 系统
+     */
+    public static final String WINDOWS_OS = "windows";
+
+    /**
+     * Linux 系统
+     */
+    public static final String LINUX_OS = "linux";
+
+    /**
+     * Mac OS 系统
+     */
+    public static final String MACOS_OS = "macOS";
+
+    /**
+     * 未知系统
+     */
+    public static final String UNKNOWN_OS = "unknown";
+
+    /**
+     * 获取操作系统类型
+     */
+    public static String getOSType() {
+        String osType = System.getProperties().getProperty("os.name").toLowerCase();
+        if (osType.startsWith("win")) {
+            osType = WINDOWS_OS;
+        } else if(osType.startsWith("linux")) {
+            osType = LINUX_OS;
+        } else if (osType.startsWith("mac")) {
+            osType = MACOS_OS;
+        } else {
+            osType = UNKNOWN_OS;
+        }
+        return osType;
     }
 }

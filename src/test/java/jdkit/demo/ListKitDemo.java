@@ -27,7 +27,7 @@
 
 package jdkit.demo;
 
-import org.openingo.jdkits.ListKit;
+import org.openingo.jdkits.collection.ListKit;
 
 import java.util.List;
 

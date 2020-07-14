@@ -27,7 +27,7 @@
 
 package org.openingo.jdkits.http;
 
-import org.openingo.jdkits.StrKit;
+import org.openingo.jdkits.lang.StrKit;
 
 import javax.net.ssl.*;
 import javax.servlet.http.HttpServletRequest;
