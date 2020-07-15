@@ -45,7 +45,7 @@ public final class AssertKit {
      */
     public static void isTrue(boolean expression, String message) {
         if (!expression) {
-            ExceptionKit.throwRuntimeException(message);
+            ExceptionKit.throwIllegalArgumentException(message);
         }
     }
 
@@ -56,7 +56,7 @@ public final class AssertKit {
      */
     public static void isFalse(boolean expression, String message) {
         if (expression) {
-            ExceptionKit.throwRuntimeException(message);
+            ExceptionKit.throwIllegalArgumentException(message);
         }
     }
 
@@ -78,7 +78,7 @@ public final class AssertKit {
      */
     public static void notNull(Object object, String message) {
         if (ValidateKit.isNull(object)) {
-            ExceptionKit.throwNullPointerException(message);
+            ExceptionKit.throwIllegalArgumentException(message);
         }
     }
 
@@ -100,7 +100,7 @@ public final class AssertKit {
      */
     public static void notEmpty(Object[] array, String message) {
         if (ValidateKit.isEmpty(array)) {
-            ExceptionKit.throwNullPointerException(message);
+            ExceptionKit.throwIllegalArgumentException(message);
         }
     }
 
