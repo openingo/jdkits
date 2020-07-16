@@ -38,14 +38,14 @@ public class ThreadLocalX<T> extends ThreadLocal<T> {
 
     /**
      * Returns the value in the current thread's copy of this
-     * thread-local variable.  If the variable has no value for the
-     * current thread, it is first initialized to the value returned
+     * thread-local variable and remove in time.
+     * If the variable has no value for the current thread,
+     * it is first initialized to the value returned
      * by an invocation of the {@link #initialValue} method.
      *
      * @return the current thread's value of this thread-local
      */
-    @Override
-    public T get() {
+    public T getRemove() {
         try {
             return super.get();
         } finally {
