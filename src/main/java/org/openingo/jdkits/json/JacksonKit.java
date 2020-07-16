@@ -32,7 +32,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openingo.jdkits.collection.ListKit;
-import org.openingo.jdkits.exeption.ExceptionKit;
 import org.openingo.jdkits.lang.StrKit;
 import org.openingo.jdkits.validate.ValidateKit;
 
@@ -62,7 +61,7 @@ public final class JacksonKit {
         try {
             json = getObjectMapper().writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            ExceptionKit.throwRuntimeException(e.getOriginalMessage());
+            throw new RuntimeException(e.getOriginalMessage());
         }
         return json;
     }
@@ -74,7 +73,7 @@ public final class JacksonKit {
             json = objectMapper.writeValueAsString(object);
             objectMapper.setSerializationInclusion(include);
         } catch (JsonProcessingException e) {
-            ExceptionKit.throwRuntimeException(e.getOriginalMessage());
+            throw new RuntimeException(e.getOriginalMessage());
         }
         return json;
     }
@@ -90,7 +89,7 @@ public final class JacksonKit {
             objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
             json = objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            ExceptionKit.throwRuntimeException(e.getOriginalMessage());
+            throw new RuntimeException(e.getOriginalMessage());
         }
         return json;
     }
@@ -107,7 +106,7 @@ public final class JacksonKit {
             objectMapper.setSerializationInclusion(include);
             json = objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            ExceptionKit.throwRuntimeException(e.getOriginalMessage());
+            throw new RuntimeException(e.getOriginalMessage());
         }
         return json;
     }
@@ -120,7 +119,7 @@ public final class JacksonKit {
         try {
             obj = getObjectMapper().readValue(json, clazz);
         } catch (JsonProcessingException e) {
-            ExceptionKit.throwRuntimeException(e.getOriginalMessage());
+            throw new RuntimeException(e.getOriginalMessage());
         }
         return obj;
     }

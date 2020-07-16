@@ -158,4 +158,12 @@ public final class ValidateKit {
     public static boolean isNotEqual(final Object a, final Object b) {
         return ValidateKit.isNotNull(a) ? !a.equals(b) : (ValidateKit.isNotNull(b) ? !b.equals(a) : false);
     }
+
+    public static boolean isTrue(Boolean bool) {
+        return ValidateKit.isNotNull(bool) && bool;
+    }
+
+    public static boolean isFalse(Boolean bool) {
+        return !isTrue(bool);
+    }
 }

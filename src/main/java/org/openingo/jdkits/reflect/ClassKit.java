@@ -27,7 +27,6 @@
 
 package org.openingo.jdkits.reflect;
 
-import org.openingo.jdkits.exeption.ExceptionKit;
 import org.openingo.jdkits.validate.AssertKit;
 
 import java.lang.reflect.Constructor;
@@ -127,9 +126,8 @@ public final class ClassKit {
             constructor.setAccessible(true);
             return constructor.newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            ExceptionKit.throwRuntimeException(String.format("实例化对象时出现错误,请尝试给 %s 添加无参的构造方法 %s", e, clazz.getName()));
+            throw new RuntimeException(String.format("实例化对象时出现错误,请尝试给 %s 添加无参的构造方法 %s", e, clazz.getName()));
         }
-        return null;
     }
 
     /**
@@ -144,9 +142,8 @@ public final class ClassKit {
         try {
             return Class.forName(name);
         } catch (ClassNotFoundException e) {
-            ExceptionKit.throwRuntimeException("找不到指定的class！请仅在明确确定会有 class 的时候，调用该方法" + e);
+            throw new RuntimeException("找不到指定的class！请仅在明确确定会有 class 的时候，调用该方法" + e);
         }
-        return null;
     }
 
 

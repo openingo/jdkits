@@ -28,7 +28,6 @@
 package org.openingo.jdkits.image;
 
 import org.openingo.jdkits.coding.Base64Kit;
-import org.openingo.jdkits.exeption.ExceptionKit;
 import org.openingo.jdkits.file.FileKit;
 import org.openingo.jdkits.validate.ValidateKit;
 import org.slf4j.Logger;
@@ -223,7 +222,7 @@ public final class ImageKit {
         String fileName = srcImageFile.getName();
         // check file
         if (!srcImageFile.exists()) {
-            ExceptionKit.throwRuntimeException("file is not exists.");
+            throw new RuntimeException("file is not exists.");
         }
         String types = Arrays.toString(ImageIO.getReaderFormatNames());
         String suffix = null;
@@ -241,7 +240,7 @@ public final class ImageKit {
             int height = getImageHeight(srcImageFile);
             int width = getImageWidth(srcImageFile);
             if (height == 0 || width == 0) {
-                ExceptionKit.throwIllegalArgumentException("输入参数错误");
+                throw new IllegalArgumentException("输入参数错误");
             } else {
                 //按比例缩放或扩大图片大小，将浮点型转为整型
                 targetWidth = (int) (width * rate);
