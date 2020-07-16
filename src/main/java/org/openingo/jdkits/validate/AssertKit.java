@@ -27,8 +27,6 @@
 
 package org.openingo.jdkits.validate;
 
-import org.openingo.jdkits.exeption.ExceptionKit;
-
 /**
  * AssertKit 工具
  *
@@ -45,7 +43,7 @@ public final class AssertKit {
      */
     public static void isTrue(boolean expression, String message) {
         if (!expression) {
-            ExceptionKit.throwIllegalArgumentException(message);
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -56,7 +54,7 @@ public final class AssertKit {
      */
     public static void isFalse(boolean expression, String message) {
         if (expression) {
-            ExceptionKit.throwIllegalArgumentException(message);
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -67,7 +65,7 @@ public final class AssertKit {
      */
     public static void isNull(Object object, String message) {
         if (ValidateKit.isNotNull(object)) {
-            ExceptionKit.throwIllegalArgumentException(message);
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -78,7 +76,7 @@ public final class AssertKit {
      */
     public static void notNull(Object object, String message) {
         if (ValidateKit.isNull(object)) {
-            ExceptionKit.throwIllegalArgumentException(message);
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -89,7 +87,7 @@ public final class AssertKit {
      */
     public static void isEmpty(Object[] array, String message) {
         if (ValidateKit.isNotEmpty(array)) {
-            ExceptionKit.throwIllegalArgumentException(message);
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -100,7 +98,7 @@ public final class AssertKit {
      */
     public static void notEmpty(Object[] array, String message) {
         if (ValidateKit.isEmpty(array)) {
-            ExceptionKit.throwIllegalArgumentException(message);
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -112,7 +110,7 @@ public final class AssertKit {
      */
     public static void isEqual(Object a, Object b, String message) {
         if (ValidateKit.isNotEqual(a, b)) {
-            ExceptionKit.throwIllegalArgumentException(message);
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -124,7 +122,7 @@ public final class AssertKit {
      */
     public static void isNotEqual(Object a, Object b, String message) {
         if (ValidateKit.isEqual(a, b)) {
-            ExceptionKit.throwIllegalArgumentException(message);
+            throw new IllegalArgumentException(message);
         }
     }
 }
