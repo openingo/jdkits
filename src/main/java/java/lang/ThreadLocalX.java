@@ -25,44 +25,48 @@
  * SOFTWARE.
  */
 
-package org.openingo.jdkits.thread;
+package java.lang;
 
 import org.openingo.jdkits.validate.ValidateKit;
 
 /**
- * ThreadLocalKit
+ * ThreadLocalX
  *
  * @author Qicz
  */
-public class ThreadLocalKit<T> {
-
-    private final ThreadLocal<T> threadLocal = new ThreadLocal<>();
+public class ThreadLocalX<T> extends ThreadLocal<T> {
 
     /**
-     * set to ThreadLocal
-     * if the t is <tt>null</tt> will remove before set.
-     * @param t
+     * Returns the value in the current thread's copy of this
+     * thread-local variable.  If the variable has no value for the
+     * current thread, it is first initialized to the value returned
+     * by an invocation of the {@link #initialValue} method.
+     *
+     * @return the current thread's value of this thread-local
      */
-    public void set(T t) {
-        if (ValidateKit.isNull(t)) {
-            this.remove();
-        }
-        this.threadLocal.set(t);
-    }
-
-    /**
-     * Returns last value and remove current ThreadLocal
-     * @return last value
-     */
+    @Override
     public T get() {
         try {
-            return this.threadLocal.get();
+            return super.get();
         } finally {
-            this.remove();
+            super.remove();
         }
     }
 
-    private void remove() {
-        this.threadLocal.remove();
+    /**
+     * Sets the current thread's copy of this thread-local variable
+     * to the specified value.  Most subclasses will have no need to
+     * override this method, relying solely on the {@link #initialValue}
+     * method to set the values of thread-locals.
+     *
+     * @param value the value to be stored in the current thread's copy of
+     *              this thread-local.
+     */
+    @Override
+    public void set(T value) {
+        if (ValidateKit.isNull(value)) {
+            super.remove();
+        }
+        super.set(value);
     }
 }
