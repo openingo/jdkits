@@ -27,6 +27,7 @@
 
 package org.openingo.jdkits.lang;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.openingo.jdkits.coding.CompressKit;
 import org.openingo.jdkits.json.JacksonKit;
 import org.openingo.jdkits.validate.ValidateKit;
@@ -172,10 +173,15 @@ public final class ObjectKit {
     /**
      * object 转化为 map，借助jackson
      * @param obj
-     * @return
+     * @return TODO
      */
     public static Map toMap(Object obj) {
-        return JacksonKit.toMap(JacksonKit.toJson(obj));
+        try {
+            return JacksonKit.toObj(JacksonKit.toJson(obj), Map.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

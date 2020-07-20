@@ -30,15 +30,15 @@ package org.openingo.jdkits.json;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.MapType;
 import org.openingo.jdkits.collection.ListKit;
 import org.openingo.jdkits.lang.StrKit;
-import org.openingo.jdkits.validate.ValidateKit;
 
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Jackson工具 JacksonKit
@@ -49,103 +49,115 @@ public final class JacksonKit {
 
     private JacksonKit(){}
 
-    private static ObjectMapper getObjectMapper() {
+    private static final ThreadLocal<ObjectMapper> OBJECT_MAPPER_HOLDER = ThreadLocal.withInitial(() -> {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
         objectMapper.configure(JsonParser.Feature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER, true);
         return objectMapper;
+    });
+
+    private static ObjectMapper getObjectMapper() {
+        return OBJECT_MAPPER_HOLDER.get();
     }
 
-    public static String toJson(Object object) {
-        String json = "";
-        try {
-            json = getObjectMapper().writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e.getOriginalMessage());
-        }
-        return json;
+    public static String toJson(Object object, JsonInclude.Include include) throws JsonProcessingException {
+        ObjectMapper objectMapper = getObjectMapper();
+        objectMapper.setSerializationInclusion(include);
+        return objectMapper.writeValueAsString(object);
     }
 
-    public static String toJson(Object object, JsonInclude.Include include) {
-        String json = "";
-        try {
-            ObjectMapper objectMapper = getObjectMapper();
-            json = objectMapper.writeValueAsString(object);
-            objectMapper.setSerializationInclusion(include);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e.getOriginalMessage());
-        }
-        return json;
-    }
-
-    public static String toJson(Object object, String datePattern) {
+    public static String toJson(Object object, String datePattern, JsonInclude.Include include) throws JsonProcessingException {
         if (StrKit.isBlank(datePattern)) {
-            return toJson(object);
+            return toJson(object, include);
         }
 
-        String json = "";
-        try {
-            ObjectMapper objectMapper = getObjectMapper();
-            objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
-            json = objectMapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e.getOriginalMessage());
-        }
-        return json;
+        return getObjectMapper()
+                .setDateFormat(new SimpleDateFormat(datePattern))
+                .setSerializationInclusion(include)
+                .writeValueAsString(object);
     }
 
-    public static String toJson(Object object, String datePattern, JsonInclude.Include include) {
-        if (StrKit.isBlank(datePattern)) {
-            return toJson(object);
-        }
-
-        String json = "";
-        try {
-            ObjectMapper objectMapper = getObjectMapper();
-            objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
-            objectMapper.setSerializationInclusion(include);
-            json = objectMapper.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e.getOriginalMessage());
-        }
-        return json;
+    public static String toJson(Object object) throws JsonProcessingException {
+        return toJson(object, JsonInclude.Include.ALWAYS);
     }
 
-    public static <T> T toObj(String json, Class<T> clazz) {
-        T obj = null;
+    public static String toJson(Object object, String datePattern) throws JsonProcessingException {
+        return toJson(object, datePattern, JsonInclude.Include.ALWAYS);
+    }
+
+    public static <T> T toObj(String json, Class<T> clazz) throws JsonProcessingException {
         if (StrKit.isBlank(json)) {
-            return obj;
+            return null;
         }
-        try {
-            obj = getObjectMapper().readValue(json, clazz);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e.getOriginalMessage());
-        }
-        return obj;
+        return getObjectMapper().readValue(json, clazz);
     }
 
-    public static <K, V> Map<K, V> toMap(String json) {
-        Map<K, V> aMap = toObj(json, Map.class);
-        if (ValidateKit.isNull(aMap)) {
-            aMap = new HashMap<>();
+    public static <T> List<T> toList(String json, Class<? extends List> collectionClass, Class<T> elementClass) throws JsonProcessingException {
+        if (StrKit.isBlank(json)) {
+            return ListKit.emptyArrayList();
         }
-        return aMap;
+        ObjectMapper objectMapper = getObjectMapper();
+        JavaType javaType = objectMapper.getTypeFactory().constructParametricType(collectionClass, elementClass);
+        return objectMapper.readValue(json, javaType);
     }
 
-    /**
-     * 转化为Map
-     * @param obj
-     */
-    public static <K, V> Map<K, V> toMap(Object obj) {
-        return toMap(toJson(obj));
+    public static <T> List<T> toList(String json, Class<T> elementClass) throws JsonProcessingException {
+        return toList(json, ArrayList.class, elementClass);
     }
 
-    /**
-     * 转化为List< Map< K, Object>>
-     * @param json
-     * @param <K>
-     */
-    public static <K> List<Map<K, Object>> toMapList(String json) {
-        return ListKit.emptyArrayListIfNull(toObj(json, List.class));
+    public static <T> List<T[]> to2DList(String json, Class<T[]> clazz) throws JsonProcessingException {
+        return toList(json, clazz);
+    }
+
+    public static <K, V> Map<K, V> toMap(String json,
+                                         Class<? extends Map> mapClass,
+                                         Class<K> keyClass,
+                                         Class<V> valueClass) throws JsonProcessingException {
+        ObjectMapper objectMapper = getObjectMapper();
+        MapType mapType = objectMapper.getTypeFactory().constructMapType(mapClass, keyClass, valueClass);
+        return objectMapper.readValue(json, mapType);
+    }
+
+    public static <K, V> List<Map<K, V>> toMapList(String json,
+                                                   Class<K> keyClass,
+                                                   Class<V> valueClass) throws JsonProcessingException {
+        List<Object> objects = toList(json, List.class, Object.class);
+        List<Map<K, V>> list = ListKit.emptyArrayList(objects.size());
+        for (Object object : objects) {
+            Map<K, V> kvMap = toMap(toJson(object), HashMap.class, keyClass, valueClass);
+            list.add(kvMap);
+        }
+        return list;
+    }
+
+    public static <K> List<Map<K, Object>> toMapList(String json,
+                                                     Class<K> keyClass) throws JsonProcessingException  {
+        return toMapList(json, keyClass, Object.class);
+    }
+
+    public static <K, V> LinkedHashMap<K, V> toLinkedMap(String json,
+                                                         Class<K> keyClass,
+                                                         Class<V> valueClass) throws JsonProcessingException {
+        ObjectMapper objectMapper = getObjectMapper();
+        MapType mapType = objectMapper.getTypeFactory().constructMapType(LinkedHashMap.class, keyClass, valueClass);
+        return objectMapper.readValue(json, mapType);
+    }
+
+    public static <K, V> List<LinkedHashMap<K, V>> toLinkedMapList(String json,
+                                                   Class<K> keyClass,
+                                                   Class<V> valueClass) throws JsonProcessingException {
+        List<Object> objects = toList(json, List.class, Object.class);
+        List<LinkedHashMap<K, V>> list = ListKit.emptyArrayList(objects.size());
+        for (Object object : objects) {
+            LinkedHashMap<K, V> kvMap = toLinkedMap(toJson(object), keyClass, valueClass);
+            list.add(kvMap);
+        }
+        return list;
+    }
+
+    public static <K> List<LinkedHashMap<K, Object>> toLinkedMapList(String json,
+                                                     Class<K> keyClass) throws JsonProcessingException  {
+        return toLinkedMapList(json, keyClass, Object.class);
     }
 }

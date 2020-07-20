@@ -27,6 +27,7 @@
 
 package jdkit.demo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.openingo.jdkits.json.JacksonKit;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ import java.util.Map;
  */
 public class JacksonKitDemo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JsonProcessingException {
 
         List a = new ArrayList();
         a.add(1);
@@ -48,14 +49,16 @@ public class JacksonKitDemo {
         a.add(3);
         String json = JacksonKit.toJson(a);
 
+        List<Integer> list = JacksonKit.toList(json, Integer.class);
+        System.out.println(list);
 
-        System.out.println(json);
-
-        List<Map<String, Object>> hashMaps = JacksonKit.toMapList("[{\"name\":\"zcq\", \"age\":1},{\"name\":\"zcq1\", \"age\":11, \"addr\":\"bj\"}]");
-        hashMaps.forEach(map -> {
-            String age = map.get("age").toString();
-            System.out.println(age.getClass() + "map" + map);
-        });
+//        System.out.println(json);
+//
+        List<Map<String, Object>> hashMaps = JacksonKit.toMapList("[{\"name\":\"zcq\", \"age\":1},{\"name\":\"zcq1\", \"age\":11, \"addr\":\"bj\"}]", String.class, Object.class);
+//        hashMaps.forEach(map -> {
+//            String age = map.get("age").toString();
+//            System.out.println(age.getClass() + "map" + map);
+//        });
         System.out.println(hashMaps);
     }
 }
