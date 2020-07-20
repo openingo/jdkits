@@ -25,12 +25,12 @@
  * SOFTWARE.
  */
 
-package org.openingo.javax;
+package org.openingo.java.lang;
 
 /**
  * StringBuilderX
  *
- * @author zhucongqi
+ * @author Qicz
  */
 @SuppressWarnings("all")
 public class StringBuilderX {

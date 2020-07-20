@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-package org.openingo.jdkits.thread;
+package org.openingo.java.lang;
 
 import org.openingo.jdkits.validate.ValidateKit;
 
