@@ -28,10 +28,14 @@
 package org.openingo.jdkits.sys;
 
 import org.openingo.jdkits.validate.ValidateKit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.*;
 import java.util.Enumeration;
+import java.util.regex.Pattern;
 
 /**
  * IPKit
@@ -40,10 +44,13 @@ import java.util.Enumeration;
  */
 public final class IPKit {
 
-    private IPKit(){}
+    private static final Logger logger       = LoggerFactory.getLogger(IPKit.class);
+    private static final String OBTAIN_IP_ERROR = "unknown";
+    private static final String  LOCALHOST_IP = "127.0.0.1";
+    private static final String  EMPTY_IP     = "0.0.0.0";
+    private static final Pattern IP_PATTERN   = Pattern.compile("[0-9]{1,3}(\\.[0-9]{1,3}){3,}");
 
-    private static final String OBTAIN_IP_ERROR = "获取IP信息失败";
-    private static final String LOCALHOST = "127.0.0.1";
+    private IPKit(){}
 
     /**
      * 获取服务器IP地址
@@ -95,7 +102,7 @@ public final class IPKit {
      * Get Request Ip Addr
      */
     public static String getRequestIP(HttpServletRequest request) {
-        String unknown = "unknown";
+        String unknown = OBTAIN_IP_ERROR;
         String ipAddress = request.getHeader("x-forwarded-for");
         if (ipAddress == null || ipAddress.length() == 0 || unknown.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("Proxy-Client-IP");
@@ -112,12 +119,135 @@ public final class IPKit {
         if (ipAddress == null || ipAddress.length() == 0 || unknown.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getRemoteAddr();
         }
-        if (ipAddress != null && ipAddress.indexOf(",") != -1) {
+        if (ipAddress != null && ipAddress.contains(",")) {
             ipAddress = ipAddress.substring(0, ipAddress.indexOf(",")).trim();
         }
         if ("0:0:0:0:0:0:0:1".equals(ipAddress)) {
-            ipAddress = LOCALHOST;
+            ipAddress = getHostIp();
+        }
+        if (null == ipAddress) {
+            ipAddress = LOCALHOST_IP;
         }
         return ipAddress;
+    }
+
+    public static boolean isAvailablePort(int port) {
+        try (ServerSocket ss = new ServerSocket(port)) {
+            ss.bind(null);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    private static boolean isValidHostAddress(InetAddress address) {
+        if (address == null || address.isLoopbackAddress()) {
+            return false;
+        }
+
+        String name = address.getHostAddress();
+        return (name != null && !EMPTY_IP.equals(name) && !LOCALHOST_IP.equals(name) && IP_PATTERN.matcher(name)
+                .matches());
+    }
+
+    public static String getHostIp() {
+        InetAddress address = getHostAddress();
+        return address == null ? null : address.getHostAddress();
+    }
+
+    public static String getHostName() {
+        InetAddress address = getHostAddress();
+        return address == null ? null : address.getHostName();
+    }
+
+    /**
+     * 判断该ip是否为本机ip，一台机器可能同时有多个IP
+     *
+     * @param ip
+     */
+    public static boolean isHostIp(String ip) {
+        InetAddress localAddress = null;
+        try {
+            localAddress = InetAddress.getLocalHost();
+            if (localAddress.isLoopbackAddress() || isValidHostAddress(localAddress)
+                    && (localAddress.getHostAddress().equals(ip) || localAddress.getHostName().equals(ip))) {
+                return true;
+            }
+        } catch (Throwable e) {
+            logger.warn("Failed to retriving local host ip address, try scan network card ip address. cause: "
+                    + e.getMessage());
+        }
+
+        try {
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            if (interfaces != null) {
+                while (interfaces.hasMoreElements()) {
+                    try {
+                        NetworkInterface network = interfaces.nextElement();
+                        Enumeration<InetAddress> addresses = network.getInetAddresses();
+                        if (addresses != null) {
+                            while (addresses.hasMoreElements()) {
+                                try {
+                                    InetAddress address = addresses.nextElement();
+                                    if (address.isLoopbackAddress() || isValidHostAddress(address) && address.getHostAddress().equals(ip)) {
+                                        return true;
+                                    }
+                                } catch (Throwable e) {
+                                    logger.warn("Failed to retriving network card ip address. cause:" + e.getMessage());
+                                }
+                            }
+                        }
+                    } catch (Throwable e) {
+                        logger.warn("Failed to retriving network card ip address. cause:" + e.getMessage());
+                    }
+                }
+            }
+        } catch (Throwable e) {
+            logger.warn("Failed to retriving network card ip address. cause:" + e.getMessage());
+        }
+
+        return false;
+    }
+
+    public static InetAddress getHostAddress() {
+        InetAddress localAddress = null;
+        try {
+            localAddress = InetAddress.getLocalHost();
+            if (isValidHostAddress(localAddress)) {
+                return localAddress;
+            }
+        } catch (Throwable e) {
+            logger.warn("Failed to retriving local host ip address, try scan network card ip address. cause: "
+                    + e.getMessage());
+        }
+        try {
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            if (interfaces != null) {
+                while (interfaces.hasMoreElements()) {
+                    try {
+                        NetworkInterface network = interfaces.nextElement();
+                        Enumeration<InetAddress> addresses = network.getInetAddresses();
+                        if (addresses != null) {
+                            while (addresses.hasMoreElements()) {
+                                try {
+                                    InetAddress address = addresses.nextElement();
+                                    if (isValidHostAddress(address)) {
+                                        return address;
+                                    }
+                                } catch (Throwable e) {
+                                    logger.warn("Failed to retriving network card ip address. cause:" + e.getMessage());
+                                }
+                            }
+                        }
+                    } catch (Throwable e) {
+                        logger.warn("Failed to retriving network card ip address. cause:" + e.getMessage());
+                    }
+                }
+            }
+        } catch (Throwable e) {
+            logger.warn("Failed to retriving network card ip address. cause:" + e.getMessage());
+        }
+        logger.error("Could not get local host ip address, will use 127.0.0.1 instead.");
+        return localAddress;
     }
 }
