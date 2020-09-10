@@ -29,6 +29,7 @@ package org.openingo.jdkits.lang;
 
 import com.esotericsoftware.reflectasm.ConstructorAccess;
 import net.sf.cglib.beans.BeanCopier;
+import net.sf.cglib.core.Converter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,8 +53,12 @@ public final class CgBeanKit {
     private static final Map<String, ConstructorAccess> CONSTRUCTOR_ACCESS_CACHE = new ConcurrentHashMap<>();
 
     public static void copyProperties(Object source, Object target) {
+        copyProperties(source, target, null);
+    }
+
+    public static void copyProperties(Object source, Object target, Converter converter) {
         BeanCopier copier = getBeanCopier(source.getClass(), target.getClass());
-        copier.copy(source, target, null);
+        copier.copy(source, target, converter);
     }
 
     private static BeanCopier getBeanCopier(Class<?> sourceClass, Class<?> targetClass) {
@@ -79,17 +84,25 @@ public final class CgBeanKit {
     }
 
     public static <T> T copyProperties(Object source, Class<T> targetClass) {
+        return copyProperties(source, targetClass, null);
+    }
+
+    public static <T> T copyProperties(Object source, Class<T> targetClass, Converter converter) {
         T t = null;
         try {
             t = targetClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             throw new RuntimeException(String.format("Create new instance of %s failed: %s", targetClass, e.getMessage()));
         }
-        copyProperties(source, t);
+        copyProperties(source, t, converter);
         return t;
     }
 
     public static <T> List<T> copyPropertiesOfList(List<?> sourceList, Class<T> targetClass) {
+        return copyPropertiesOfList(sourceList, targetClass, null);
+    }
+
+    public static <T> List<T> copyPropertiesOfList(List<?> sourceList, Class<T> targetClass, Converter converter) {
         if (sourceList == null || sourceList.isEmpty()) {
             return Collections.emptyList();
         }
@@ -99,7 +112,7 @@ public final class CgBeanKit {
             T t = null;
             try {
                 t = constructorAccess.newInstance();
-                copyProperties(o, t);
+                copyProperties(o, t, converter);
                 resultList.add(t);
             } catch (Exception e) {
                 throw new RuntimeException(e);
