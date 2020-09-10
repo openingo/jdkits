@@ -33,7 +33,7 @@
 
     <groupId>org.openingo.kits</groupId>
     <artifactId>jdkits</artifactId>
-    <version>3.3</version>
+    <version>3.4</version>
     <name>jdkits</name>
     <description>Java Develop Common Kits</description>
     <url>https://github.com/OpeningO/jdkits</url>
@@ -92,6 +92,12 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.esotericsoftware</groupId>
+            <artifactId>reflectasm</artifactId>
+            <version>1.11.7</version>
             <scope>provided</scope>
         </dependency>
 
