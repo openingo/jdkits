@@ -283,4 +283,19 @@ public final class StrKit implements StringPoolKit {
         }
         return true;
     }
+
+    /**
+     * 将字符数组转为整型数组
+     *
+     * @param c
+     * @throws NumberFormatException
+     */
+    public static int[] convertCharToInt(char[] c) throws NumberFormatException {
+        int[] a = new int[c.length];
+        int k = 0;
+        for (char temp : c) {
+            a[k++] = Integer.parseInt(String.valueOf(temp));
+        }
+        return a;
+    }
 }
