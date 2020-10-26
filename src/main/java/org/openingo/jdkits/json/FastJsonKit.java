@@ -93,6 +93,15 @@ public final class FastJsonKit {
     }
 
     /**
+     * 转化为Map
+     * @param obj
+     * @param datePattern
+     */
+    public static <K, V> Map<K, V> toMap(Object obj, String datePattern) {
+        return toMap(toJson(obj, datePattern));
+    }
+
+    /**
      * 转化为List
      * @param json
      * @param clazz

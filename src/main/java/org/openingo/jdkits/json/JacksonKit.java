@@ -119,6 +119,21 @@ public final class JacksonKit {
         return objectMapper.readValue(json, mapType);
     }
 
+    public static <K, V> Map<K, V> toMap(Object obj,
+                                         Class<? extends Map> mapClass,
+                                         Class<K> keyClass,
+                                         Class<V> valueClass) throws JsonProcessingException {
+        return toMap(toJson(obj), mapClass, keyClass, valueClass);
+    }
+
+    public static <K, V> Map<K, V> toMap(Object obj,
+                                         String datePattern,
+                                         Class<? extends Map> mapClass,
+                                         Class<K> keyClass,
+                                         Class<V> valueClass) throws JsonProcessingException {
+        return toMap(toJson(obj, datePattern), mapClass, keyClass, valueClass);
+    }
+
     public static <K, V> List<Map<K, V>> toMapList(String json,
                                                    Class<K> keyClass,
                                                    Class<V> valueClass) throws JsonProcessingException {
