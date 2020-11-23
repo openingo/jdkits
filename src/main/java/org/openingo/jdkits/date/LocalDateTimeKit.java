@@ -27,11 +27,10 @@
 
 package org.openingo.jdkits.date;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
+import java.util.Date;
 
 /**
  * LocalDateTimeKit
@@ -40,10 +39,12 @@ import java.time.temporal.TemporalUnit;
  */
 public final class LocalDateTimeKit {
 
-    private LocalDateTimeKit(){}
+    private LocalDateTimeKit() {
+    }
 
     /**
      * 日期之后的某个日期
+     *
      * @param dateTime
      * @param plusVal
      * @param unit
@@ -56,6 +57,7 @@ public final class LocalDateTimeKit {
 
     /**
      * hours小时之后的时间日期
+     *
      * @param dateTime
      * @param hours
      */
@@ -67,6 +69,7 @@ public final class LocalDateTimeKit {
 
     /**
      * minutes分钟之后的时间日期
+     *
      * @param dateTime
      * @param minutes
      */
@@ -78,6 +81,7 @@ public final class LocalDateTimeKit {
 
     /**
      * 当前日期之后的某个日期
+     *
      * @param plusVal
      * @param unit
      */
@@ -87,6 +91,7 @@ public final class LocalDateTimeKit {
 
     /**
      * hours小时之后的时间日期
+     *
      * @param hours
      */
     private static LocalDateTime plusHours(long hours) {
@@ -95,6 +100,7 @@ public final class LocalDateTimeKit {
 
     /**
      * minutes分钟之后的时间日期
+     *
      * @param minutes
      */
     private static LocalDateTime plusMinutes(long minutes) {
@@ -103,6 +109,7 @@ public final class LocalDateTimeKit {
 
     /**
      * years年之后的时间日期
+     *
      * @param years
      */
     public static LocalDateTime afterYears(long years) {
@@ -111,6 +118,7 @@ public final class LocalDateTimeKit {
 
     /**
      * months月之后的时间日期
+     *
      * @param months
      */
     public static LocalDateTime afterMonths(long months) {
@@ -119,6 +127,7 @@ public final class LocalDateTimeKit {
 
     /**
      * weeks周之后的时间日期
+     *
      * @param weeks
      */
     public static LocalDateTime afterWeeks(long weeks) {
@@ -127,6 +136,7 @@ public final class LocalDateTimeKit {
 
     /**
      * days天之后的时间日期
+     *
      * @param days
      */
     public static LocalDateTime afterDays(long days) {
@@ -135,6 +145,7 @@ public final class LocalDateTimeKit {
 
     /**
      * hours小时之后的时间日期
+     *
      * @param hours
      */
     public static LocalDateTime afterHours(long hours) {
@@ -143,6 +154,7 @@ public final class LocalDateTimeKit {
 
     /**
      * minutes分钟之后的时间日期
+     *
      * @param minutes
      */
     public static LocalDateTime afterMinutes(long minutes) {
@@ -151,6 +163,7 @@ public final class LocalDateTimeKit {
 
     /**
      * years年之前的时间日期
+     *
      * @param years
      */
     public static LocalDateTime beforeYears(long years) {
@@ -159,6 +172,7 @@ public final class LocalDateTimeKit {
 
     /**
      * months月之前的时间日期
+     *
      * @param months
      */
     public static LocalDateTime beforeMonths(long months) {
@@ -167,6 +181,7 @@ public final class LocalDateTimeKit {
 
     /**
      * weeks周之前的时间日期
+     *
      * @param weeks
      */
     public static LocalDateTime beforeWeeks(long weeks) {
@@ -175,6 +190,7 @@ public final class LocalDateTimeKit {
 
     /**
      * days天之前的时间日期
+     *
      * @param days
      */
     public static LocalDateTime beforeDays(long days) {
@@ -183,6 +199,7 @@ public final class LocalDateTimeKit {
 
     /**
      * hours小时之前的时间日期
+     *
      * @param hours
      */
     public static LocalDateTime beforeHours(long hours) {
@@ -191,6 +208,7 @@ public final class LocalDateTimeKit {
 
     /**
      * minutes分钟之前的时间日期
+     *
      * @param minutes
      */
     public static LocalDateTime beforeMinutes(long minutes) {
@@ -199,6 +217,7 @@ public final class LocalDateTimeKit {
 
     /**
      * years年之后的时间日期
+     *
      * @param dateTime
      * @param years
      */
@@ -208,6 +227,7 @@ public final class LocalDateTimeKit {
 
     /**
      * months月之后的时间日期
+     *
      * @param dateTime
      * @param months
      */
@@ -217,6 +237,7 @@ public final class LocalDateTimeKit {
 
     /**
      * weeks周之后的时间日期
+     *
      * @param dateTime
      * @param weeks
      */
@@ -226,6 +247,7 @@ public final class LocalDateTimeKit {
 
     /**
      * days天之后的时间日期
+     *
      * @param dateTime
      * @param days
      */
@@ -235,6 +257,7 @@ public final class LocalDateTimeKit {
 
     /**
      * hours小时之后的时间日期
+     *
      * @param dateTime
      * @param hours
      */
@@ -244,6 +267,7 @@ public final class LocalDateTimeKit {
 
     /**
      * minutes分钟之后的时间日期
+     *
      * @param dateTime
      * @param minutes
      */
@@ -253,6 +277,7 @@ public final class LocalDateTimeKit {
 
     /**
      * years年之前的时间日期
+     *
      * @param dateTime
      * @param years
      */
@@ -262,6 +287,7 @@ public final class LocalDateTimeKit {
 
     /**
      * months月之前的时间日期
+     *
      * @param dateTime
      * @param months
      */
@@ -271,6 +297,7 @@ public final class LocalDateTimeKit {
 
     /**
      * weeks周之前的时间日期
+     *
      * @param dateTime
      * @param weeks
      */
@@ -280,6 +307,7 @@ public final class LocalDateTimeKit {
 
     /**
      * days天之前的时间日期
+     *
      * @param dateTime
      * @param days
      */
@@ -289,6 +317,7 @@ public final class LocalDateTimeKit {
 
     /**
      * hours小时之前的时间日期
+     *
      * @param dateTime
      * @param hours
      */
@@ -298,10 +327,33 @@ public final class LocalDateTimeKit {
 
     /**
      * minutes分钟之前的时间日期
+     *
      * @param dateTime
      * @param minutes
      */
     public static LocalDateTime beforeMinutes(LocalDateTime dateTime, long minutes) {
         return plusMinutes(dateTime, -minutes);
+    }
+
+    /**
+     * Date转换为LocalDateTime
+     *
+     * @param date
+     */
+    public static LocalDateTime date2LocalDateTime(Date date) {
+        Instant instant = date.toInstant();//An instantaneous point on the time-line.(时间线上的一个瞬时点。)
+        ZoneId zoneId = ZoneId.systemDefault();//A time-zone ID, such as {@code Europe/Paris}.(时区)
+        return instant.atZone(zoneId).toLocalDateTime();
+    }
+
+    /**
+     * LocalDateTime转换为Date
+     *
+     * @param localDateTime
+     */
+    public static Date localDateTime2Date(LocalDateTime localDateTime) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zdt = localDateTime.atZone(zoneId);//Combines this date-time with a time-zone to create a  ZonedDateTime.
+        return Date.from(zdt.toInstant());
     }
 }
