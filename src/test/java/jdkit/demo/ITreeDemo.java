@@ -29,9 +29,10 @@ package jdkit.demo;
 
 import org.openingo.jdkits.json.FastJsonKit;
 import org.openingo.jdkits.tree.ITreeNode;
-import org.openingo.jdkits.tree.TreeParser;
+import org.openingo.jdkits.tree.TreeBuilder;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -43,6 +44,7 @@ public class ITreeDemo implements ITreeNode<ITreeDemo> {
 
     private Integer id;
     private Integer pid;
+    private Integer order;
     private List<ITreeDemo> list;
 
     public Integer getId() {
@@ -57,23 +59,29 @@ public class ITreeDemo implements ITreeNode<ITreeDemo> {
         return list;
     }
 
-    public ITreeDemo(Integer id, Integer pid) {
+    public Integer getOrder() {
+        return order;
+    }
+
+    public ITreeDemo(Integer id, Integer pid, Integer order) {
         this.id = id;
         this.pid = pid;
+        this.order = order;
     }
 
     public static List<ITreeDemo> getInit() {
         return Arrays.asList(
-                new ITreeDemo(11, 0),
-                new ITreeDemo(32, 11),
-                new ITreeDemo(2, 11),
-                new ITreeDemo(5, 32),
-                new ITreeDemo(4, 32));
+                new ITreeDemo(11, 0, 1),
+                new ITreeDemo(32, 11, 11),
+                new ITreeDemo(2, 11,2),
+                new ITreeDemo(5, 32, 1),
+                new ITreeDemo(4, 32, 2));
     }
 
     public static void main(String[] args) {
         List<ITreeDemo> init = ITreeDemo.getInit();
-        List<ITreeDemo> treeList = TreeParser.getTreeList("0", init, true);
+        List<ITreeDemo> treeList = TreeBuilder.buildTree(TreeBuilder.RootNode.ZERO_ID, init, Comparator.comparingInt(o -> o.order));
+        //treeList = TreeBuilder.buildTree("11", init, false, Comparator.comparingInt(o -> o.order));
         System.out.println(FastJsonKit.toJson(treeList));
     }
 
@@ -97,7 +105,7 @@ public class ITreeDemo implements ITreeNode<ITreeDemo> {
      * @param childNodes loading child nodes
      */
     @Override
-    public void loadChildNodes(List<ITreeDemo> childNodes) {
+    public void putChildNodes(List<ITreeDemo> childNodes) {
         this.list = childNodes;
     }
 }

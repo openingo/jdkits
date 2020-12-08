@@ -47,7 +47,7 @@ public interface ITreeNode<E> {
     String nodeParentId();
 
     /**
-     * @param childNodes loading child nodes
+     * @param childNodes put the child nodes
      */
-    void loadChildNodes(List<E> childNodes);
+    void putChildNodes(List<E> childNodes);
 }
