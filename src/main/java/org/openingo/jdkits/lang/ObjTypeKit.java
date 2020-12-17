@@ -39,14 +39,6 @@ public final class ObjTypeKit {
 
     private ObjTypeKit(){}
 
-    public enum TypeSelector {
-        MYSQL_TYPE,
-        JAVA_TYPE
-    }
-
-    private static TypeSelector selector;
-    private static ObjTypeKit instance = new ObjTypeKit();
-
     private static Map<String, Class<?>> javaTypeMapping = new HashMap<String, Class<?>>(32) {{
 
         // varchar, char, enum, set, text, tinytext, mediumtext, longtext
@@ -94,11 +86,6 @@ public final class ObjTypeKit {
         put("java.lang.Short", java.lang.Short.class);
         put("java.lang.Byte", java.lang.Byte.class);
     }};
-
-    public static ObjTypeKit selector(TypeSelector selector) {
-        ObjTypeKit.selector = selector;
-        return ObjTypeKit.instance;
-    }
 
     public static Class<?> getType(String typeString) {
         return javaTypeMapping.get(typeString);
