@@ -159,11 +159,11 @@ public final class TreeBuilder {
         if (StrKit.isBlank(rootNodeId)) {
             // 传入rootNodeId为null或者为0,不处理hasRoot
             entities.stream()
-                    .filter(entity -> (StrKit.isBlank(entity.nodeParentId()) ))
+                    .filter(entity -> (StrKit.isBlank(entity.rootNodeId()) ))
                     .forEach(retTree::add);
         } else if (StrKit.equalsAny(rootNodeId, "0", "null")) {
             entities.stream()
-                    .filter(entity -> rootNodeId.equals(entity.nodeParentId()))
+                    .filter(entity -> rootNodeId.equals(entity.rootNodeId()))
                     .forEach(retTree::add);
         } else {
             if (hasRoot) {
@@ -173,7 +173,7 @@ public final class TreeBuilder {
                         .forEach(retTree::add);
             } else {
                 entities.stream()
-                        .filter(entity -> rootNodeId.equals(entity.nodeParentId()))
+                        .filter(entity -> rootNodeId.equals(entity.rootNodeId()))
                         .forEach(retTree::add);
             }
         }
@@ -203,7 +203,7 @@ public final class TreeBuilder {
         List<E> childNodes = ListKit.emptyArrayList();
         // 子集的直接子对象
         entityList.stream()
-                .filter(entity -> nodeParentId.equals(entity.nodeParentId()))
+                .filter(entity -> nodeParentId.equals(entity.rootNodeId()))
                 .forEach(childNodes::add);
         // 排序
         if (ValidateKit.isNotNull(comparator)) {

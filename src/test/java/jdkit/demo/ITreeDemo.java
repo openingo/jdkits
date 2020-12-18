@@ -46,6 +46,7 @@ public class ITreeDemo implements ITreeNode<ITreeDemo> {
     private Integer pid;
     private Integer order;
     private List<ITreeDemo> list;
+    private Integer nodeCnt;
 
     public Integer getId() {
         return id;
@@ -61,6 +62,10 @@ public class ITreeDemo implements ITreeNode<ITreeDemo> {
 
     public Integer getOrder() {
         return order;
+    }
+
+    public Integer getNodeCnt() {
+        return this.list.size();
     }
 
     public ITreeDemo(Integer id, Integer pid, Integer order) {
@@ -97,7 +102,7 @@ public class ITreeDemo implements ITreeNode<ITreeDemo> {
      * @return current node parent id
      */
     @Override
-    public String nodeParentId() {
+    public String rootNodeId() {
         return pid.toString();
     }
 

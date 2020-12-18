@@ -42,9 +42,9 @@ public interface ITreeNode<E> {
     String nodeId();
 
     /**
-     * @return current node parent id
+     * @return current node root id
      */
-    String nodeParentId();
+    String rootNodeId();
 
     /**
      * @param childNodes put the child nodes
