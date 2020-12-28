@@ -100,6 +100,9 @@ public final class RespData extends HashMap<String, Object> {
 	 * @return response with failure status
 	 */
 	public static RespData failure(Object sc, String sm) {
+		if (ValidateKit.isNull(sc)) {
+			return failure(sm);
+		}
 		return (new RespData(sc, sm));
 	}
 
