@@ -77,6 +77,7 @@ public class ITreeDemo implements ITreeNode<ITreeDemo> {
     public static List<ITreeDemo> getInit() {
         return Arrays.asList(
                 new ITreeDemo(11, 0, 1),
+                new ITreeDemo(111, 0, 1),
                 new ITreeDemo(32, 11, 11),
                 new ITreeDemo(2, 11,2),
                 new ITreeDemo(5, 32, 1),

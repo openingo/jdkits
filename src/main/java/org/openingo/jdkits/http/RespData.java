@@ -93,6 +93,16 @@ public final class RespData extends HashMap<String, Object> {
 		return (new RespData(Config.FAILURE_SC, sm));
 	}
 
+	/**
+	 * Failure Response
+	 * @param sc response status code
+	 * @param sm response status message
+	 * @return response with failure status
+	 */
+	public static RespData failure(Object sc, String sm) {
+		return (new RespData(sc, sm));
+	}
+
 	private RespData() {
 		
 	}
