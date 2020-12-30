@@ -159,21 +159,21 @@ public final class TreeBuilder {
         if (StrKit.isBlank(rootNodeId)) {
             // 传入rootNodeId为null或者为0,不处理hasRoot
             entities.stream()
-                    .filter(entity -> (StrKit.isBlank(entity.rootNodeId()) ))
+                    .filter(entity -> (StrKit.isBlank(entity.treeRootNodeId()) ))
                     .forEach(retTree::add);
         } else if (StrKit.equalsAny(rootNodeId, "0", "null")) {
             entities.stream()
-                    .filter(entity -> rootNodeId.equals(entity.rootNodeId()))
+                    .filter(entity -> rootNodeId.equals(entity.treeRootNodeId()))
                     .forEach(retTree::add);
         } else {
             if (hasRoot) {
                 // 包含顶层节点自身
                 entities.stream()
-                        .filter(entity -> rootNodeId.equals(entity.nodeId()))
+                        .filter(entity -> rootNodeId.equals(entity.treeNodeId()))
                         .forEach(retTree::add);
             } else {
                 entities.stream()
-                        .filter(entity -> rootNodeId.equals(entity.rootNodeId()))
+                        .filter(entity -> rootNodeId.equals(entity.treeRootNodeId()))
                         .forEach(retTree::add);
             }
         }
@@ -185,7 +185,7 @@ public final class TreeBuilder {
             retTree.sort(comparator);
         }
         // 获取每个顶层元素的子数据集合
-        retTree.forEach(entity -> entity.putChildNodes(getChildNodes(entity.nodeId(), entities, comparator)));
+        retTree.forEach(entity -> entity.putChildNodes(getChildNodes(entity.treeNodeId(), entities, comparator)));
         return retTree;
     }
 
@@ -203,14 +203,14 @@ public final class TreeBuilder {
         List<E> childNodes = ListKit.emptyArrayList();
         // 子集的直接子对象
         entityList.stream()
-                .filter(entity -> nodeParentId.equals(entity.rootNodeId()))
+                .filter(entity -> nodeParentId.equals(entity.treeRootNodeId()))
                 .forEach(childNodes::add);
         // 排序
         if (ValidateKit.isNotNull(comparator)) {
             childNodes.sort(comparator);
         }
         // 子集的间接子对象,递归调用
-        childNodes.forEach(entity -> entity.putChildNodes(getChildNodes(entity.nodeId(), entityList, comparator)));
+        childNodes.forEach(entity -> entity.putChildNodes(getChildNodes(entity.treeNodeId(), entityList, comparator)));
         // 递归退出条件
         return childNodes;
     }

@@ -33,7 +33,7 @@
 
     <groupId>org.openingo.kits</groupId>
     <artifactId>jdkits</artifactId>
-    <version>3.6.6</version>
+    <version>3.6.7</version>
     <name>jdkits</name>
     <description>Java Develop Common Kits</description>
     <url>https://github.com/OpeningO/jdkits</url>

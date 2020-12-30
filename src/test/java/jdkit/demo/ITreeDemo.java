@@ -95,7 +95,7 @@ public class ITreeDemo implements ITreeNode<ITreeDemo> {
      * @return current node id
      */
     @Override
-    public String nodeId() {
+    public String treeNodeId() {
         return id.toString();
     }
 
@@ -103,7 +103,7 @@ public class ITreeDemo implements ITreeNode<ITreeDemo> {
      * @return current node parent id
      */
     @Override
-    public String rootNodeId() {
+    public String treeRootNodeId() {
         return pid.toString();
     }
 
