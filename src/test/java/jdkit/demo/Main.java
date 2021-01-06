@@ -27,12 +27,10 @@
 
 package jdkit.demo;
 
-import org.openingo.jdkits.collection.ArrayKit;
 import org.openingo.jdkits.collection.ListKit;
 
 import java.util.ArrayList;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class Main {
     public static void main(String ss[]) {
