@@ -27,6 +27,7 @@
 
 package org.openingo.jdkits.collection;
 
+import org.openingo.java.util.OverrideList;
 import org.openingo.jdkits.validate.AssertKit;
 import org.openingo.jdkits.validate.ValidateKit;
 
@@ -40,6 +41,17 @@ import java.util.*;
 public final class ListKit {
 
     private ListKit(){}
+
+    /**
+     * 返回一个空的OverrideList
+     */
+    public static <T> OverrideList<T> emptyOverrideList() {
+        return new OverrideList<>();
+    }
+
+    public static <T> OverrideList<T> emptyOverrideList(int initialCapacity) {
+        return new OverrideList<>(initialCapacity);
+    }
 
     /**
      * 返回一个空的ArrayList
