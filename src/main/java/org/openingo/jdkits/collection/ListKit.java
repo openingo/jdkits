@@ -130,8 +130,8 @@ public final class ListKit {
             List<Object> permu = new ArrayList<>(list.get(0));
             List<List<Object>> now = new ArrayList<>(list);
             now.remove(0);
-            for(int i = 0; i < permu.size(); i++){
-                permutation(permutationRet, now, prefix + permu.get(i) + split, ":");
+            for (Object o : permu) {
+                permutation(permutationRet, now, prefix + o + split, ":");
             }
         }
     }
@@ -255,7 +255,7 @@ public final class ListKit {
      * @param <T>
      * @return list移除removingList中元素后剩余的元素集合
      */
-    public static <T> boolean removeAll(final List<T> list, final Collection<?> removingList) {
+    public static <T> boolean removeAll(final List<T> list, final Collection<T> removingList) {
         validateList(list);
         boolean ret = true;
         if (ValidateKit.isNotNull(removingList)) {

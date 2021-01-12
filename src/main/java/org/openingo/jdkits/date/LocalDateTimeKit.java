@@ -28,6 +28,7 @@
 package org.openingo.jdkits.date;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.Date;
@@ -355,5 +356,41 @@ public final class LocalDateTimeKit {
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zdt = localDateTime.atZone(zoneId);//Combines this date-time with a time-zone to create a  ZonedDateTime.
         return Date.from(zdt.toInstant());
+    }
+
+    /**
+     * LocalDateTime装为String
+     * @param localDateTime 待转换的localDateTime
+     * @param pattern 完整的年月日时分秒格式
+     */
+    public static String localDateTime2String(LocalDateTime localDateTime, String pattern) {
+        return DateTimeFormatter.ofPattern(pattern).format(localDateTime.atZone(ZoneId.systemDefault()));
+    }
+
+    /**
+     * string转为LocalDateTime
+     * @param string 待转换的字符串
+     * @param pattern 完整的年月日时分秒格式
+     */
+    public static LocalDateTime string2LocalDateTime(String string, String pattern) {
+        return LocalDateTime.parse(string, DateTimeFormatter.ofPattern(pattern)).atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
+    /**
+     * localDate转String
+     * @param localDate 待转的localDate
+     * @param pattern 完整的年月日格式
+     */
+    public static String localDate2String(LocalDate localDate, String pattern) {
+        return DateTimeFormatter.ofPattern(pattern).format(localDate);
+    }
+
+    /**
+     * string转LocalDate
+     * @param string 待转换的字符串
+     * @param pattern 完整的年月日格式
+     */
+    public static LocalDate string2LocalDate(String string, String pattern) {
+        return LocalDate.parse(string, DateTimeFormatter.ofPattern(pattern));
     }
 }

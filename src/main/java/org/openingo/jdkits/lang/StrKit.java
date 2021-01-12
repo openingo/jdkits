@@ -30,6 +30,11 @@ package org.openingo.jdkits.lang;
 import org.openingo.jdkits.hash.HashKit;
 import org.openingo.jdkits.validate.ValidateKit;
 
+import java.nio.charset.StandardCharsets;
+import java.util.StringJoiner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 字符串工具 StrKit
  *
@@ -38,6 +43,8 @@ import org.openingo.jdkits.validate.ValidateKit;
 public final class StrKit implements StringPoolKit {
 
     private StrKit(){}
+
+    private static final String ILLEGAL_CHARS = "`~!#%^&*=+\\|{};:'\",<>/?○●★☆☉♀♂※¤╬の〆";
 
     /**
      * 首字母变小写
@@ -297,5 +304,127 @@ public final class StrKit implements StringPoolKit {
             a[k++] = Integer.parseInt(String.valueOf(temp));
         }
         return a;
+    }
+
+    /**
+     * 判断字符串中是否包含中文
+     * <note>不能校验是否为中文标点符号</note>
+     * @param str 待校验字符串
+     * @return 是否为中文
+     */
+    public static boolean isContainChinese(String str) {
+        String regEx = "[\u4e00-\u9fa5]";
+        return Pattern.compile(regEx).matcher(str).find();
+    }
+
+    /**
+     * 过滤掉中文
+     * @param string 待过滤中文的字符串
+     * @return 过滤掉中文后字符串
+     */
+    public static String filterChinese(String string) {
+        String ret = string;
+        // 包含中文
+        if (isContainChinese(string)) {
+            StringBuilder retBuilder = new StringBuilder();
+            char[] chars = string.toCharArray();
+            // 过滤到中文及中文字符
+            for (char c : chars) {
+                // 不是中日韩文字及标点符号
+                if (!isChinese(c)) {
+                    retBuilder.append(c);
+                }
+            }
+            ret = retBuilder.toString();
+        }
+        return ret;
+    }
+
+    /**
+     * 校验一个字符是否是汉字
+     *
+     * @param c 被校验的字符
+     * @return true代表是汉字
+     */
+    public static boolean isChineseChar(char c) {
+        try {
+            return String.valueOf(c).getBytes(StandardCharsets.UTF_8).length > 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 验证字符串内容是否包含下列非法字符<br>
+     * `~!#%^&*=+\\|{};:'\",<>/?○●★☆☉♀♂※¤╬の〆
+     *
+     * @param string 字符串内容
+     * @return true包含，false不包含
+     */
+    public static boolean hasIllegalChar(String string) {
+        char[] chars = string.toCharArray();
+        for (char aChar : chars) {
+            if (isIllegalChar(aChar)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 验证字符内容是否包含下列非法字符<br>
+     * `~!#%^&*=+\\|{};:'\",<>/?○●★☆☉♀♂※¤╬の〆
+     *
+     * @param c 字符
+     * @return true包含，false不包含
+     */
+    public static boolean isIllegalChar(char c) {
+        return ILLEGAL_CHARS.contains(String.valueOf(c));
+    }
+
+    /**
+     * 校验某个字符是否是a-z、A-Z、_、0-9
+     *
+     * @param c 被校验的字符
+     * @return true代表符合条件
+     */
+    public static boolean isWord(char c) {
+        String regEx = "[\\w]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher("" + c);
+        return m.matches();
+    }
+
+    /**
+     * 判定输入的是否是汉字
+     *
+     * @param c 被校验的字符
+     * @return true代表是汉字
+     */
+    public static boolean isChinese(char c) {
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+        return ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION
+                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
+                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS;
+    }
+
+    /**
+     * 校验String是否全是中文
+     *
+     * @param string 被校验的字符串
+     * @return true代表全是汉字
+     */
+    public static boolean isChinese(String string) {
+        char[] chars = string.toCharArray();
+        for (char c: chars) {
+            if (!isChinese(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
