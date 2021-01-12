@@ -29,6 +29,7 @@ package org.openingo.java.lang;
 
 /**
  * StringBuilderX
+ * 添加扩展condition参数
  *
  * @author Qicz
  */
@@ -304,15 +305,15 @@ public class StringBuilderX {
 
     // conditional
 
-    public StringBuilderX append(boolean bool, Object obj) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, Object obj) {
+        if (!condition) {
             return this;
         }
         return append(String.valueOf(obj));
     }
 
-    public StringBuilderX append(boolean bool, String str) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, String str) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(str);
@@ -338,16 +339,16 @@ public class StringBuilderX {
      * @param   sb   the {@code StringBuffer} to append.
      * @return  a reference to this object.
      */
-    public StringBuilderX append(boolean bool, StringBuffer sb) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, StringBuffer sb) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(sb);
         return this;
     }
 
-    public StringBuilderX append(boolean bool, CharSequence s) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, CharSequence s) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(s);
@@ -357,16 +358,16 @@ public class StringBuilderX {
     /**
      * @throws     IndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX append(boolean bool, CharSequence s, int start, int end) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, CharSequence s, int start, int end) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(s, start, end);
         return this;
     }
 
-    public StringBuilderX append(boolean bool, char[] str) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, char[] str) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(str);
@@ -376,56 +377,56 @@ public class StringBuilderX {
     /**
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX append(boolean bool, char[] str, int offset, int len) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, char[] str, int offset, int len) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(str, offset, len);
         return this;
     }
 
-    public StringBuilderX append(boolean bool, boolean b) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, boolean b) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(b);
         return this;
     }
 
-    public StringBuilderX append(boolean bool, char c) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, char c) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(c);
         return this;
     }
 
-    public StringBuilderX append(boolean bool, int i) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, int i) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(i);
         return this;
     }
 
-    public StringBuilderX append(boolean bool, long lng) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, long lng) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(lng);
         return this;
     }
 
-    public StringBuilderX append(boolean bool, float f) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, float f) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(f);
         return this;
     }
 
-    public StringBuilderX append(boolean bool, double d) {
-        if (!bool) {
+    public StringBuilderX append(boolean condition, double d) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.append(d);
@@ -435,8 +436,8 @@ public class StringBuilderX {
     /**
      * @since 1.5
      */
-    public StringBuilderX appendCodePoint(boolean bool, int codePoint) {
-        if (!bool) {
+    public StringBuilderX appendCodePoint(boolean condition, int codePoint) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.appendCodePoint(codePoint);
@@ -446,8 +447,8 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX delete(boolean bool, int start, int end) {
-        if (!bool) {
+    public StringBuilderX delete(boolean condition, int start, int end) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.delete(start, end);
@@ -457,8 +458,8 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX deleteCharAt(boolean bool, int index) {
-        if (!bool) {
+    public StringBuilderX deleteCharAt(boolean condition, int index) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.deleteCharAt(index);
@@ -468,9 +469,9 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX replace(boolean bool,
+    public StringBuilderX replace(boolean condition,
                                   int start, int end, String str) {
-        if (!bool) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.replace(start, end, str);
@@ -480,11 +481,11 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool,
+    public StringBuilderX insert(boolean condition,
                                  int index, char[] str, int offset,
                                  int len)
     {
-        if (!bool) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(index, str, offset, len);
@@ -494,8 +495,8 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool, int offset, Object obj) {
-        if (!bool) {
+    public StringBuilderX insert(boolean condition, int offset, Object obj) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(offset, obj);
@@ -505,8 +506,8 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool, int offset, String str) {
-        if (!bool) {
+    public StringBuilderX insert(boolean condition, int offset, String str) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(offset, str);
@@ -516,8 +517,8 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool, int offset, char[] str) {
-        if (!bool) {
+    public StringBuilderX insert(boolean condition, int offset, char[] str) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(offset, str);
@@ -527,8 +528,8 @@ public class StringBuilderX {
     /**
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool, int dstOffset, CharSequence s) {
-        if (!bool) {
+    public StringBuilderX insert(boolean condition, int dstOffset, CharSequence s) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(dstOffset, s);
@@ -538,10 +539,10 @@ public class StringBuilderX {
     /**
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool,
+    public StringBuilderX insert(boolean condition,
                                  int dstOffset, CharSequence s,
                                  int start, int end) {
-        if (!bool) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(dstOffset, s, start, end);
@@ -551,8 +552,8 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool, int offset, boolean b) {
-        if (!bool) {
+    public StringBuilderX insert(boolean condition, int offset, boolean b) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(offset, b);
@@ -562,8 +563,8 @@ public class StringBuilderX {
     /**
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool, int offset, char c) {
-        if (!bool) {
+    public StringBuilderX insert(boolean condition, int offset, char c) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(offset, c);
@@ -573,8 +574,8 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool, int offset, int i) {
-        if (!bool) {
+    public StringBuilderX insert(boolean condition, int offset, int i) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(offset, i);
@@ -584,8 +585,8 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool, int offset, long l) {
-        if (!bool) {
+    public StringBuilderX insert(boolean condition, int offset, long l) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(offset, l);
@@ -595,8 +596,8 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool, int offset, float f) {
-        if (!bool) {
+    public StringBuilderX insert(boolean condition, int offset, float f) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(offset, f);
@@ -606,8 +607,8 @@ public class StringBuilderX {
     /**
      * @throws StringIndexOutOfBoundsException {@inheritDoc}
      */
-    public StringBuilderX insert(boolean bool, int offset, double d) {
-        if (!bool) {
+    public StringBuilderX insert(boolean condition, int offset, double d) {
+        if (!condition) {
             return this;
         }
         this.stringBuilder.insert(offset, d);
