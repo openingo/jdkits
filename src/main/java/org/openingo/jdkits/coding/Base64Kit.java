@@ -28,6 +28,7 @@
 package org.openingo.jdkits.coding;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Base64工具
@@ -38,7 +39,7 @@ public final class Base64Kit {
 
     private Base64Kit(){}
 
-    public static final Charset UTF_8 = Charset.forName("UTF-8");
+    public static final Charset UTF_8 = StandardCharsets.UTF_8;
     private static IBase64 delegate;
 
     static {

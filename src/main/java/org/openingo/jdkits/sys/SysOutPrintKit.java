@@ -63,10 +63,12 @@ public final class SysOutPrintKit {
 
     private SysOutPrintKit(){}
 
+    @SafeVarargs
     public static <T> void print(String format, T... args) {
         System.out.print(String.format(format, args));
     }
 
+    @SafeVarargs
     public static <T> void println(String format, T... args) {
         System.out.println(String.format(format, args));
     }
@@ -104,9 +106,7 @@ public final class SysOutPrintKit {
             return;
         }
 
-        StringBuilder formatBuilder = new StringBuilder("len:%s, data=");
-        formatBuilder.append(collection.toString());
-        println(formatBuilder.toString(), collection.size());
+        println("len:%s, data=" + collection.toString(), collection.size());
     }
 
     /**

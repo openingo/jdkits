@@ -82,8 +82,8 @@ public final class HttpKit {
     private static final String POST = "POST";
     private static String CHARSET = "UTF-8";
 
-    private static final SSLSocketFactory sslSocketFactory = initSSLSocketFactory();
-    private static final TrustAnyHostnameVerifier trustAnyHostnameVerifier = new HttpKit.TrustAnyHostnameVerifier();
+    private static final SSLSocketFactory SSL_SOCKET_FACTORY = initSSLSocketFactory();
+    private static final TrustAnyHostnameVerifier TRUST_ANY_HOSTNAME_VERIFIER = new HttpKit.TrustAnyHostnameVerifier();
 
     private static SSLSocketFactory initSSLSocketFactory() {
         try {
@@ -108,8 +108,8 @@ public final class HttpKit {
         URL _url = new URL(url);
         HttpURLConnection conn = (HttpURLConnection)_url.openConnection();
         if (conn instanceof HttpsURLConnection) {
-            ((HttpsURLConnection)conn).setSSLSocketFactory(sslSocketFactory);
-            ((HttpsURLConnection)conn).setHostnameVerifier(trustAnyHostnameVerifier);
+            ((HttpsURLConnection)conn).setSSLSocketFactory(SSL_SOCKET_FACTORY);
+            ((HttpsURLConnection)conn).setHostnameVerifier(TRUST_ANY_HOSTNAME_VERIFIER);
         }
 
         conn.setRequestMethod(method);
@@ -299,7 +299,7 @@ public final class HttpKit {
 		}
     }
 
-    public static String readIncommingRequestData(HttpServletRequest request) {
+    public static String readIncomingRequestData(HttpServletRequest request) {
         return readData(request);
     }
 }

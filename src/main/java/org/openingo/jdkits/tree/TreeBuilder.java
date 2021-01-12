@@ -107,8 +107,15 @@ public final class TreeBuilder {
      * Root Id Node
      */
     public enum RootNode {
-        ZERO_ID("0"), // id is 0
-        NULL_ID("null"); // id is null
+        /**
+         * id is 0
+         */
+        ZERO_ID("0"),
+
+        /**
+         * id is null
+         */
+        NULL_ID("null");
 
         private String id;
         RootNode(String id) {

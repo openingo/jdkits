@@ -78,9 +78,7 @@ public final class ObjectKit {
             obj = (T)ois.readObject();
             ois.close();
             bis.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return obj;
@@ -175,20 +173,14 @@ public final class ObjectKit {
      * @param obj
      * @return TODO
      */
-    public static Map toMap(Object obj) {
-        try {
-            return JacksonKit.toObj(JacksonKit.toJson(obj), Map.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public static Map toMap(Object obj) throws JsonProcessingException {
+        return JacksonKit.toObj(JacksonKit.toJson(obj), Map.class);
     }
 
     /**
      * Clone 一个对象
      * @param obj
      * @param <T>
-     * @return
      */
     public <T extends Serializable> T clone(T obj) {
         return SerializationKit.clone(obj);

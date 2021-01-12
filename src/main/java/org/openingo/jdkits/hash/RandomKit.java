@@ -78,7 +78,7 @@ public final class RandomKit {
      */
     public static Integer nInt(Integer randomLen) {
         String random = random(randomLen, RandomKit.NUMBERS);
-        random = random.length() < randomLen ? random+"0":random;
+        random = random.length() < randomLen ? random + "0" : random;
         return Integer.parseInt(random);
     }
 
@@ -109,20 +109,20 @@ public final class RandomKit {
      */
     public static String lcStr(Integer randomLen) {
         String random = random(randomLen, RandomKit.CHAR_AND_NUMBERS).toLowerCase();
-        return random.length() < randomLen ? (random+"0") : random;
+        return random.length() < randomLen ? (random + "0") : random;
     }
 
 
     private static String random(Integer randomLen,
                                  Integer type){
-        String randomRet = "";
         String dataTable = ( RandomKit.NUMBERS.equals(type)
                 ? "1234567890"
                 : "1234567890abcdefghijkmnpqrstuvwxyz");
         int dataTableLen = dataTable.length();
         boolean bDone = true;
+        StringBuilder randomRet;
         do {
-            randomRet = "";
+            randomRet = new StringBuilder();
             int count = 0;
             for (int i = 0; i < randomLen; i++) {
                 double dblR = Math.random() * dataTableLen;
@@ -131,13 +131,13 @@ public final class RandomKit {
                 if (('0' <= c) && (c <= '9')) {
                     count++;
                 }
-                randomRet += dataTable.charAt(intR);
+                randomRet.append(dataTable.charAt(intR));
             }
             if (count >= 2) {
                 bDone = false;
             }
         } while (bDone);
 
-        return randomRet;
+        return randomRet.toString();
     }
 }

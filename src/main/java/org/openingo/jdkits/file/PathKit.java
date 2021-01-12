@@ -39,7 +39,11 @@ public final class PathKit {
 
     private PathKit(){}
 
-    public static String getPath(Class clazz) {
+    public static String getCurrentPath() {
+        return System.getProperty("user.dir");
+    }
+
+    public static String getPath(Class<?> clazz) {
         String path = clazz.getResource("").getPath();
         return new File(path).getAbsolutePath();
     }

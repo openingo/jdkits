@@ -42,7 +42,7 @@ public final class HashKit {
     public static final long FNV_OFFSET_BASIS_64 = 0xcbf29ce484222325L;
     public static final long FNV_PRIME_64 = 0x100000001b3L;
 
-    private static final java.security.SecureRandom random = new java.security.SecureRandom();
+    private static final java.security.SecureRandom RANDOM = new java.security.SecureRandom();
     private static final char[] HEX_DIGITS = "0123456789abcdef".toCharArray();
     private static final char[] CHAR_ARRAY = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
@@ -88,9 +88,9 @@ public final class HashKit {
 
     public static String toHex(byte[] bytes) {
         StringBuilder ret = new StringBuilder(bytes.length * 2);
-        for (int i=0; i<bytes.length; i++) {
-            ret.append(HEX_DIGITS[(bytes[i] >> 4) & 0x0f]);
-            ret.append(HEX_DIGITS[bytes[i] & 0x0f]);
+        for (byte aByte : bytes) {
+            ret.append(HEX_DIGITS[(aByte >> 4) & 0x0f]);
+            ret.append(HEX_DIGITS[aByte & 0x0f]);
         }
         return ret.toString();
     }
@@ -105,7 +105,7 @@ public final class HashKit {
     public static String generateSalt(int saltLength) {
         StringBuilder salt = new StringBuilder(saltLength);
         for (int i=0; i<saltLength; i++) {
-            salt.append(CHAR_ARRAY[random.nextInt(CHAR_ARRAY.length)]);
+            salt.append(CHAR_ARRAY[RANDOM.nextInt(CHAR_ARRAY.length)]);
         }
         return salt.toString();
     }

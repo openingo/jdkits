@@ -37,16 +37,19 @@ import java.util.List;
 public interface ITreeNode<E> {
 
     /**
-     * @return current node id
+     * current node id
+     * @return nodeId
      */
     String treeNodeId();
 
     /**
-     * @return current node root id
+     * current node root id
+     * @return rootNodeId
      */
     String treeRootNodeId();
 
     /**
+     * put current node's child nodes
      * @param childNodes put the child nodes
      */
     void putChildNodes(List<E> childNodes);

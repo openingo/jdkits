@@ -81,8 +81,8 @@ public final class RSAKit {
      * 初始化密钥
      *
      * @param seed 种子
-     * @return Map 密钥Map
      * @throws Exception 异常
+     * @return Map 密钥Map
      */
     private static void init(byte[] seed) throws Exception {
         // 实例化密钥对生成器
