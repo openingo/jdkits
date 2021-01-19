@@ -67,6 +67,8 @@
         <log4j-to-slf4j.version>2.11.2</log4j-to-slf4j.version>
         <jul-to-slf4j.version>1.7.28</jul-to-slf4j.version>
         <user-agent-utils.version>1.20</user-agent-utils.version>
+        <apache.poi.version>4.1.2</apache.poi.version>
+        <apache.pdfbox.version>2.0.12</apache.pdfbox.version>
     </properties>
 
     <dependencies>
@@ -126,6 +128,35 @@
             <version>${user-agent-utils.version}</version>
             <scope>provided</scope>
         </dependency>
+        <!-- 读取Excel XLS -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 读取PPT、DOC、Visio -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-scratchpad</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- 读取Excel XLSX、PPTX、DOCX、-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!--读取pdf信息-->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>fontbox</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -173,6 +204,36 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>jul-to-slf4j</artifactId>
                 <version>${jul-to-slf4j.version}</version>
+            </dependency>
+
+            <!-- 读取Excel XLS -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${apache.poi.version}</version>
+            </dependency>
+            <!-- 读取PPT、DOC、Visio -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-scratchpad</artifactId>
+                <version>${apache.poi.version}</version>
+            </dependency>
+            <!-- 读取Excel XLSX、PPTX、DOCX、-->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${apache.poi.version}</version>
+            </dependency>
+            <!--读取pdf信息-->
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>pdfbox</artifactId>
+                <version>${apache.pdfbox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pdfbox</groupId>
+                <artifactId>fontbox</artifactId>
+                <version>${apache.pdfbox.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
