@@ -29,7 +29,9 @@ package jdkit.demo;
 
 import org.openingo.jdkits.lang.CgBeanKit;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,6 +56,7 @@ public class CgBeanKitDemo {
         a.a1 = "a1";
         a.a2 = "a2";
         a.a3 = 11;
+        a.list = Arrays.asList("111", "222");
 
         B b = new B();
 
@@ -66,6 +69,8 @@ public class CgBeanKitDemo {
         String a1;
         String a2;
         int a3;
+
+        List<String> list;
 
         public String getA1() {
             return a1;
@@ -90,6 +95,14 @@ public class CgBeanKitDemo {
         public void setA3(int a3) {
             this.a3 = a3;
         }
+
+        public List<String> getList() {
+            return list;
+        }
+
+        public void setList(List<String> list) {
+            this.list = list;
+        }
     }
 
     static class B {
@@ -98,6 +111,7 @@ public class CgBeanKitDemo {
         int a3;
         int b1;
         int b2;
+        List<String> list;
 
         public String getA1() {
             return a1;
@@ -139,6 +153,14 @@ public class CgBeanKitDemo {
             this.b2 = b2;
         }
 
+        public List<String> getList() {
+            return list;
+        }
+
+        public void setList(List<String> list) {
+            this.list = list;
+        }
+
         @Override
         public String toString() {
             return "B{" +
@@ -147,6 +169,7 @@ public class CgBeanKitDemo {
                     ", a3=" + a3 +
                     ", b1=" + b1 +
                     ", b2=" + b2 +
+                    ", list=" + list +
                     '}';
         }
     }
