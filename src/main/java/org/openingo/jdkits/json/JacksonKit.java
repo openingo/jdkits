@@ -33,7 +33,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.type.MapType;
+import org.openingo.java.lang.ThreadLocalX;
 import org.openingo.jdkits.collection.ListKit;
 import org.openingo.jdkits.lang.StrKit;
 
@@ -47,6 +49,14 @@ import java.util.*;
  */
 public final class JacksonKit {
 
+    public static class JacksonConfig {
+        public JsonInclude.Include include;
+        public String datePattern;
+        public PropertyNamingStrategy propertyNamingStrategy;
+    }
+
+    private static final ThreadLocalX<JacksonConfig> JACKSON_CONFIG_HOLDER = new ThreadLocalX<>();
+
     private JacksonKit(){}
 
     private static final ThreadLocal<ObjectMapper> OBJECT_MAPPER_HOLDER = ThreadLocal.withInitial(() -> {
@@ -58,12 +68,43 @@ public final class JacksonKit {
     });
 
     private static ObjectMapper getObjectMapper() {
-        return OBJECT_MAPPER_HOLDER.get();
+        ObjectMapper objectMapper = OBJECT_MAPPER_HOLDER.get();
+        JacksonConfig jacksonConfig = JACKSON_CONFIG_HOLDER.getRemove();
+        if (null != jacksonConfig) {
+            if (Objects.nonNull(jacksonConfig.include)) {
+                objectMapper.setSerializationInclusion(jacksonConfig.include);
+            }
+            if (Objects.nonNull(jacksonConfig.datePattern)) {
+                objectMapper.setDateFormat(new SimpleDateFormat(jacksonConfig.datePattern));
+            }
+            if (Objects.nonNull(jacksonConfig.propertyNamingStrategy)) {
+                objectMapper.setPropertyNamingStrategy(jacksonConfig.propertyNamingStrategy);
+            }
+        }
+        return objectMapper;
+    }
+
+    public static void setConfig(JacksonConfig jacksonConfig) {
+        JACKSON_CONFIG_HOLDER.set(jacksonConfig);
+    }
+
+    private static void setConfig(JsonInclude.Include include,
+                                  String datePattern) {
+        JacksonConfig jacksonConfig = new JacksonConfig();
+        jacksonConfig.include = include;
+        jacksonConfig.datePattern = datePattern;
+        setConfig(jacksonConfig);
+    }
+
+    public static String toJson(Object object, JacksonConfig jacksonConfig) throws JsonProcessingException {
+        setConfig(jacksonConfig);
+        ObjectMapper objectMapper = getObjectMapper();
+        return objectMapper.writeValueAsString(object);
     }
 
     public static String toJson(Object object, JsonInclude.Include include) throws JsonProcessingException {
+        setConfig(include, null);
         ObjectMapper objectMapper = getObjectMapper();
-        objectMapper.setSerializationInclusion(include);
         return objectMapper.writeValueAsString(object);
     }
 
@@ -72,10 +113,8 @@ public final class JacksonKit {
             return toJson(object, include);
         }
 
-        return getObjectMapper()
-                .setDateFormat(new SimpleDateFormat(datePattern))
-                .setSerializationInclusion(include)
-                .writeValueAsString(object);
+        setConfig(include, datePattern);
+        return getObjectMapper().writeValueAsString(object);
     }
 
     public static String toJson(Object object) throws JsonProcessingException {
