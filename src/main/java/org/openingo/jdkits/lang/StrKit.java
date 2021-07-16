@@ -31,8 +31,10 @@ import org.openingo.jdkits.hash.HashKit;
 import org.openingo.jdkits.validate.ValidateKit;
 
 import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * 字符串工具 StrKit
@@ -425,5 +427,19 @@ public final class StrKit implements StringPoolKit {
             }
         }
         return true;
+    }
+
+    public static List<String> filterBlank(Collection<String> strings) {
+        if (Objects.isNull(strings)) {
+            return Collections.emptyList();
+        }
+        return strings.stream().filter(StrKit::notBlank).map(String::trim).collect(Collectors.toList());
+    }
+
+    public static Set<String> filterBlank(Set<String> strings) {
+        if (Objects.isNull(strings)) {
+            return Collections.emptySet();
+        }
+        return strings.stream().filter(StrKit::notBlank).map(String::trim).collect(Collectors.toSet());
     }
 }

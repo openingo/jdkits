@@ -27,6 +27,7 @@
 
 package org.openingo.jdkits.hash;
 
+import java.security.SecureRandom;
 import java.util.Random;
 import java.util.UUID;
 
@@ -48,7 +49,7 @@ public final class RandomKit {
      * @param max
      */
     public static Integer range(Integer min, Integer max){
-        Random random = new Random();
+        SecureRandom random = new SecureRandom();
         return random.nextInt(max) % (max-min+1) + min;
     }
 
