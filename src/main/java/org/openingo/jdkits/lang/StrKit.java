@@ -27,9 +27,13 @@
 
 package org.openingo.jdkits.lang;
 
+import org.apache.xmlbeans.impl.store.CharUtil;
+import org.openingo.jdkits.collection.ArrayKit;
 import org.openingo.jdkits.hash.HashKit;
 import org.openingo.jdkits.validate.ValidateKit;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -76,7 +80,7 @@ public final class StrKit implements StringPoolKit {
     /**
      * 字符串为 null 或者内部字符全部为 ' ' '\t' '\n' '\r' 这四类字符时返回 true
      */
-    public static boolean isBlank(String str) {
+    public static boolean isBlank(CharSequence str) {
         if (str == null) {
             return true;
         }
@@ -100,15 +104,15 @@ public final class StrKit implements StringPoolKit {
         return true;
     }
 
-    public static boolean notBlank(String str) {
+    public static boolean notBlank(CharSequence str) {
         return !isBlank(str);
     }
 
-    public static boolean notBlank(String... strings) {
+    public static boolean notBlank(CharSequence... strings) {
         if (strings == null || strings.length == 0) {
             return false;
         }
-        for (String str : strings) {
+        for (CharSequence str : strings) {
             if (isBlank(str)) {
                 return false;
             }
@@ -116,16 +120,12 @@ public final class StrKit implements StringPoolKit {
         return true;
     }
 
-    public static boolean notNull(Object... paras) {
-        if (paras == null) {
-            return false;
-        }
-        for (Object obj : paras) {
-            if (obj == null) {
-                return false;
-            }
-        }
-        return true;
+    public static boolean isEmpty(CharSequence str) {
+        return null == str || str.length() == 0;
+    }
+
+    public static boolean isNotEmpty(CharSequence str) {
+        return !isEmpty(str);
     }
 
     public static String defaultIfBlank(String str, String defaultValue) {
@@ -156,34 +156,21 @@ public final class StrKit implements StringPoolKit {
         return new String(toArray, 0, j);
     }
 
-    public static String join(String[] stringArray) {
-        StringBuilder sb = new StringBuilder();
-        for (String s : stringArray) {
-            sb.append(s);
-        }
-        return sb.toString();
+    public static String join(CharSequence[] stringArray) {
+        return join(Arrays.asList(stringArray), "");
     }
 
-    public static String join(String[] stringArray, String separator) {
-        StringBuilder sb = new StringBuilder();
-        for (int i=0; i<stringArray.length; i++) {
-            if (i > 0) {
-                sb.append(separator);
-            }
-            sb.append(stringArray[i]);
-        }
-        return sb.toString();
+    public static String join(CharSequence[] stringArray, CharSequence separator) {
+        return join(Arrays.asList(stringArray), separator);
     }
 
-    public static String join(java.util.List<String> list, String separator) {
-        StringBuilder sb = new StringBuilder();
-        for (int i=0, len=list.size(); i<len; i++) {
-            if (i > 0) {
-                sb.append(separator);
-            }
-            sb.append(list.get(i));
+    public static String join(java.util.Collection<CharSequence> collection, CharSequence separator) {
+        if (ValidateKit.isEmpty(collection)) {
+            return "";
         }
-        return sb.toString();
+        StringJoiner joiner = new StringJoiner(separator);
+        collection.forEach(joiner::add);
+        return joiner.toString();
     }
 
     public static boolean slowEquals(String a, String b) {
@@ -193,7 +180,7 @@ public final class StrKit implements StringPoolKit {
     }
 
     public static boolean equals(String a, String b) {
-        return a == null ? b == null : a.equals(b);
+        return Objects.equals(a, b);
     }
 
     public static String getRandomUUID() {
@@ -441,5 +428,158 @@ public final class StrKit implements StringPoolKit {
             return Collections.emptySet();
         }
         return strings.stream().filter(StrKit::notBlank).map(String::trim).collect(Collectors.toSet());
+    }
+
+    /**
+     * 将对象转为字符串<br>
+     *
+     * <pre>
+     * 1、Byte数组和ByteBuffer会被转换为对应字符串的数组
+     * 2、对象数组会调用Arrays.toString方法
+     * </pre>
+     *
+     * @param obj 对象
+     * @return 字符串
+     */
+    public static String utf8Str(Object obj) {
+        return str(obj, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * 将对象转为字符串
+     *
+     * <pre>
+     * 1、Byte数组和ByteBuffer会被转换为对应字符串的数组
+     * 2、对象数组会调用Arrays.toString方法
+     * </pre>
+     *
+     * @param obj         对象
+     * @param charsetName 字符集
+     * @return 字符串
+     */
+    public static String str(Object obj, String charsetName) {
+        return str(obj, Charset.forName(charsetName));
+    }
+
+    /**
+     * 将对象转为字符串
+     * <pre>
+     * 	 1、Byte数组和ByteBuffer会被转换为对应字符串的数组
+     * 	 2、对象数组会调用Arrays.toString方法
+     * </pre>
+     *
+     * @param obj     对象
+     * @param charset 字符集
+     * @return 字符串
+     */
+    public static String str(Object obj, Charset charset) {
+        if (null == obj) {
+            return null;
+        }
+
+        if (obj instanceof String) {
+            return (String) obj;
+        } else if (obj instanceof byte[]) {
+            return str((byte[]) obj, charset);
+        } else if (obj instanceof Byte[]) {
+            return str((Byte[]) obj, charset);
+        } else if (obj instanceof ByteBuffer) {
+            return str((ByteBuffer) obj, charset);
+        } else if (obj.getClass().isArray()) {
+            return ArrayKit.toString(obj);
+        }
+
+        return obj.toString();
+    }
+
+    /**
+     * 将byte数组转为字符串
+     *
+     * @param bytes   byte数组
+     * @param charset 字符集
+     * @return 字符串
+     */
+    public static String str(byte[] bytes, String charset) {
+        return str(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
+    }
+
+    /**
+     * 解码字节码
+     *
+     * @param data    字符串
+     * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+     * @return 解码后的字符串
+     */
+    public static String str(byte[] data, Charset charset) {
+        if (data == null) {
+            return null;
+        }
+
+        if (null == charset) {
+            return new String(data);
+        }
+        return new String(data, charset);
+    }
+
+    /**
+     * 将Byte数组转为字符串
+     *
+     * @param bytes   byte数组
+     * @param charset 字符集
+     * @return 字符串
+     */
+    public static String str(Byte[] bytes, String charset) {
+        return str(bytes, isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
+    }
+
+    /**
+     * 解码字节码
+     *
+     * @param data    字符串
+     * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+     * @return 解码后的字符串
+     */
+    public static String str(Byte[] data, Charset charset) {
+        if (data == null) {
+            return null;
+        }
+
+        byte[] bytes = new byte[data.length];
+        Byte dataByte;
+        for (int i = 0; i < data.length; i++) {
+            dataByte = data[i];
+            bytes[i] = (null == dataByte) ? -1 : dataByte;
+        }
+
+        return str(bytes, charset);
+    }
+
+    /**
+     * 将编码的byteBuffer数据转换为字符串
+     *
+     * @param data    数据
+     * @param charset 字符集，如果为空使用当前系统字符集
+     * @return 字符串
+     */
+    public static String str(ByteBuffer data, String charset) {
+        if (data == null) {
+            return null;
+        }
+
+        return str(data, Charset.forName(charset));
+    }
+
+    /**
+     * 将编码的byteBuffer数据转换为字符串
+     *
+     * @param data    数据
+     * @param charset 字符集，如果为空使用当前系统字符集
+     * @return 字符串
+     */
+    public static String str(ByteBuffer data, Charset charset) {
+        if (null == charset) {
+            charset = Charset.defaultCharset();
+        }
+        return charset.decode(data).toString();
     }
 }

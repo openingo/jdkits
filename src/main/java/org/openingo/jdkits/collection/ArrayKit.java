@@ -179,4 +179,54 @@ public final class ArrayKit {
     public static <T> List<T> toList(final T[] array) {
         return Arrays.asList(array);
     }
+
+    /**
+     * 数组或集合转String
+     *
+     * @param obj 集合或数组对象
+     * @return 数组字符串，与集合转字符串格式相同
+     */
+    public static String toString(Object obj) {
+        if (null == obj) {
+            return null;
+        }
+
+        if (obj instanceof long[]) {
+            return Arrays.toString((long[]) obj);
+        } else if (obj instanceof int[]) {
+            return Arrays.toString((int[]) obj);
+        } else if (obj instanceof short[]) {
+            return Arrays.toString((short[]) obj);
+        } else if (obj instanceof char[]) {
+            return Arrays.toString((char[]) obj);
+        } else if (obj instanceof byte[]) {
+            return Arrays.toString((byte[]) obj);
+        } else if (obj instanceof boolean[]) {
+            return Arrays.toString((boolean[]) obj);
+        } else if (obj instanceof float[]) {
+            return Arrays.toString((float[]) obj);
+        } else if (obj instanceof double[]) {
+            return Arrays.toString((double[]) obj);
+        } else if (obj.getClass().isArray()) {
+            // 对象数组
+            try {
+                return Arrays.deepToString((Object[]) obj);
+            } catch (Exception ignore) {
+                //ignore
+            }
+        }
+
+        return obj.toString();
+    }
+
+    /**
+     * 数组是否为空
+     *
+     * @param <T>   数组元素类型
+     * @param array 数组
+     * @return 是否为空
+     */
+    public static <T> boolean isEmpty(T[] array) {
+        return array == null || array.length == 0;
+    }
 }
