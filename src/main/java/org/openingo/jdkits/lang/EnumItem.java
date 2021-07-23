@@ -25,6 +25,8 @@ public interface EnumItem<E extends EnumItem<E>> extends Serializable {
 
 	int intVal();
 
+	String strVal();
+
 	/**
 	 * 获取所有枚举对象
 	 *
@@ -72,7 +74,5 @@ public interface EnumItem<E extends EnumItem<E>> extends Serializable {
 		}
 		return null;
 	}
-
-
 }
 
