@@ -31,6 +31,7 @@ import org.openingo.jdkits.validate.AssertKit;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.List;
 
@@ -174,4 +175,25 @@ public final class ClassKit {
         return (lastDotIndex != -1 ? fqClassName.substring(0, lastDotIndex) : "");
     }
 
+    /**
+     * 获取泛型实际类型
+     * @param obj 所在类
+     * @param index 索引
+     * @param <T>
+     * @return 泛型实际类型
+     */
+    public static <T> Class<T> getGenericType(Object obj, Integer index) {
+        return getGenericType(obj.getClass(), index);
+    }
+
+    /**
+     * 获取泛型实际类型
+     * @param clazz 所在类
+     * @param index 索引
+     * @param <T>
+     * @return 泛型实际类型
+     */
+    public static <T> Class<T> getGenericType(Class<?> clazz, Integer index) {
+        return (Class<T>) ((ParameterizedType) clazz.getGenericSuperclass()).getActualTypeArguments()[index];
+    }
 }
