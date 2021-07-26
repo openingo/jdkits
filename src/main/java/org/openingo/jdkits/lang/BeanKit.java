@@ -27,11 +27,16 @@
 
 package org.openingo.jdkits.lang;
 
+import com.google.common.base.Converter;
+import com.google.common.collect.Lists;
+import net.sf.cglib.beans.BeanCopier;
 import net.sf.cglib.beans.BeanMap;
+import org.checkerframework.checker.units.qual.A;
 import org.openingo.jdkits.collection.ListKit;
 import org.openingo.jdkits.reflect.ClassKit;
 import org.openingo.jdkits.validate.ValidateKit;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -96,5 +101,29 @@ public final class BeanKit {
             return ListKit.emptyList();
         }
         return maps.stream().map(e -> mapToBean(e, clazz)).collect(toList());
+    }
+
+    public static <A, B> B genericTypeCopy(A a, Class<B> bClass) {
+        final Class<A> aClass = (Class<A>)a.getClass();
+        return genericConverter(aClass, bClass).convert(a);
+    }
+
+    public static <A, B> Collection<B> genericTypeCopy(Collection<A> a, Class<B> bClass) {
+        final Class<A> aClass = (Class<A>)a.iterator().next().getClass();
+        return Lists.newArrayList(genericConverter(aClass, bClass).convertAll(a));
+    }
+
+    private static <A, B> Converter<A, B> genericConverter(Class<A> aClass, Class<B> bClass) {
+        BeanCopier forwardCopier = BeanCopier.create(aClass, bClass, false);
+        BeanCopier backwardCopier = BeanCopier.create(bClass, aClass, false);
+        return Converter.from(forward -> {
+            final B newB = ClassKit.newInstance(bClass);
+            forwardCopier.copy(forward, newB, null);
+            return newB;
+        }, backward -> {
+            final A newA = ClassKit.newInstance(aClass);
+            backwardCopier.copy(backward, newA, null);
+            return newA;
+        });
     }
 }
