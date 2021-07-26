@@ -117,13 +117,13 @@ public final class BeanKit {
         BeanCopier forwardCopier = BeanCopier.create(aClass, bClass, false);
         BeanCopier backwardCopier = BeanCopier.create(bClass, aClass, false);
         return Converter.from(forward -> {
-            final B newB = ClassKit.newInstance(bClass);
-            forwardCopier.copy(forward, newB, null);
-            return newB;
+            final B aB = ClassKit.newInstance(bClass);
+            forwardCopier.copy(forward, aB, null);
+            return aB;
         }, backward -> {
-            final A newA = ClassKit.newInstance(aClass);
-            backwardCopier.copy(backward, newA, null);
-            return newA;
+            final A aA = ClassKit.newInstance(aClass);
+            backwardCopier.copy(backward, aA, null);
+            return aA;
         });
     }
 }
