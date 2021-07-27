@@ -71,7 +71,7 @@ public final class FileKit {
         if (StrKit.isBlank(fileFullName)) {
             throw new RuntimeException("fileFullName is empty");
         }
-        return  getFileExtension(new File(fileFullName));
+        return getFileExtension(new File(fileFullName));
     }
 
     public static String getFileExtension(File file) {

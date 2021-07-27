@@ -68,10 +68,6 @@
         <servlet.api.version>4.0.1</servlet.api.version>
         <jackson.version>2.10.4</jackson.version>
         <zxing.javase.version>3.4.0</zxing.javase.version>
-        <cglib.version>3.3.0</cglib.version>
-        <logback-classic.version>1.2.3</logback-classic.version>
-        <log4j-to-slf4j.version>2.11.2</log4j-to-slf4j.version>
-        <jul-to-slf4j.version>1.7.28</jul-to-slf4j.version>
         <user-agent-utils.version>1.20</user-agent-utils.version>
         <apache.poi.version>4.1.2</apache.poi.version>
         <apache.pdfbox.version>2.0.12</apache.pdfbox.version>
@@ -113,18 +109,8 @@
         <!-- logging -->
 
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-to-slf4j</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
+            <artifactId>slf4j-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -192,29 +178,6 @@
                 <groupId>com.google.zxing</groupId>
                 <artifactId>javase</artifactId>
                 <version>${zxing.javase.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib</artifactId>
-                <version>${cglib.version}</version>
-            </dependency>
-
-            <!-- logging -->
-
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback-classic.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-to-slf4j</artifactId>
-                <version>${log4j-to-slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jul-to-slf4j</artifactId>
-                <version>${jul-to-slf4j.version}</version>
             </dependency>
 
             <!-- 读取Excel XLS -->
