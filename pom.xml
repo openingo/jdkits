@@ -34,12 +34,12 @@
     <parent>
         <groupId>org.openingo</groupId>
         <artifactId>openingo-dependencies</artifactId>
-        <version>1.0.5-SNAPSHOT</version>
+        <version>1.0.5</version>
     </parent>
 
     <groupId>org.openingo.kits</groupId>
     <artifactId>jdkits</artifactId>
-    <version>3.7.1-SNAPSHOT</version>
+    <version>3.7.1</version>
     <name>jdkits</name>
     <description>Java Develop Common Kits</description>
     <url>https://github.com/OpeningO/jdkits</url>

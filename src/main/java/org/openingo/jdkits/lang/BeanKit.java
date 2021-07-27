@@ -31,7 +31,6 @@ import com.google.common.base.Converter;
 import com.google.common.collect.Lists;
 import net.sf.cglib.beans.BeanCopier;
 import net.sf.cglib.beans.BeanMap;
-import org.checkerframework.checker.units.qual.A;
 import org.openingo.jdkits.collection.ListKit;
 import org.openingo.jdkits.reflect.ClassKit;
 import org.openingo.jdkits.validate.ValidateKit;
@@ -103,27 +102,27 @@ public final class BeanKit {
         return maps.stream().map(e -> mapToBean(e, clazz)).collect(toList());
     }
 
-    public static <A, B> B genericTypeCopy(A a, Class<B> bClass) {
+    public static <A, B> B copy(A a, Class<B> bClass) {
         final Class<A> aClass = (Class<A>)a.getClass();
-        return genericConverter(aClass, bClass).convert(a);
+        return converter(aClass, bClass).convert(a);
     }
 
-    public static <A, B> Collection<B> genericTypeCopy(Collection<A> a, Class<B> bClass) {
+    public static <A, B> List<B> copy(Collection<A> a, Class<B> bClass) {
         final Class<A> aClass = (Class<A>)a.iterator().next().getClass();
-        return Lists.newArrayList(genericConverter(aClass, bClass).convertAll(a));
+        return Lists.newArrayList(converter(aClass, bClass).convertAll(a));
     }
 
-    private static <A, B> Converter<A, B> genericConverter(Class<A> aClass, Class<B> bClass) {
-        BeanCopier forwardCopier = BeanCopier.create(aClass, bClass, false);
-        BeanCopier backwardCopier = BeanCopier.create(bClass, aClass, false);
-        return Converter.from(forward -> {
-            final B aB = ClassKit.newInstance(bClass);
-            forwardCopier.copy(forward, aB, null);
-            return aB;
-        }, backward -> {
-            final A aA = ClassKit.newInstance(aClass);
-            backwardCopier.copy(backward, aA, null);
-            return aA;
+    private static <A, B> Converter<A, B> converter(Class<A> aClass, Class<B> bClass) {
+        BeanCopier a2bCopier = BeanCopier.create(aClass, bClass, false);
+        BeanCopier b2aCopier = BeanCopier.create(bClass, aClass, false);
+        return Converter.from(a -> {
+            final B b = ClassKit.newInstance(bClass);
+            a2bCopier.copy(a, b, null);
+            return b;
+        }, b -> {
+            final A a = ClassKit.newInstance(aClass);
+            b2aCopier.copy(b, a, null);
+            return a;
         });
     }
 }
