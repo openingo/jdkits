@@ -55,10 +55,6 @@ public final class ThreadShareKit {
 	}
 
 	public static <T> void put(T data) {
-		if (!(data instanceof String)) {
-			put(DEFAULT_SHARE);
-			return;
-		}
 		put(DEFAULT_SHARE, data);
 	}
 
