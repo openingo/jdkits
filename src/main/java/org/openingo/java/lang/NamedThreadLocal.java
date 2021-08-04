@@ -27,29 +27,24 @@
 
 package org.openingo.java.lang;
 
+import org.apache.poi.ss.formula.functions.T;
+
 /**
- * ThreadLocalKit
+ * NamedThreadLocal
  *
  * @author Qicz
- * @since 2021/7/27 16:18
+ * @since 2021/8/4 11:09
  */
-public final class ThreadLocalKit {
+public class NamedThreadLocal<T> extends ThreadLocalX<T> {
 
-	private ThreadLocalKit() {
+	private final String name;
 
+	public NamedThreadLocal(String name) {
+		this.name = name;
 	}
 
-	private final static ThreadLocalX<Object> GLOBAL_HOLDER = new ThreadLocalX<>();
-
-	public static <T> void put(T data) {
-		GLOBAL_HOLDER.set(data);
-	}
-
-	public static <T> T get() {
-		return (T) GLOBAL_HOLDER.get();
-	}
-
-	public static <T> T getRemove() {
-		return (T) GLOBAL_HOLDER.getRemove();
+	@Override
+	public String toString() {
+		return this.name;
 	}
 }
