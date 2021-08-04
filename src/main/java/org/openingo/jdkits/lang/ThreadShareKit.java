@@ -25,7 +25,7 @@
  * SOFTWARE.
  */
 
-package org.openingo.java.lang;
+package org.openingo.jdkits.lang;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,67 +34,65 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * NamedThreadLocalKit
+ * ThreadShareKit
  *
  * @author Qicz
  * @since 2021/7/27 16:18
  */
-public final class NamedThreadLocalKit {
+public final class ThreadShareKit {
 
-	private static Logger log = LoggerFactory.getLogger(NamedThreadLocalKit.class);
+	private static Logger log = LoggerFactory.getLogger(ThreadShareKit.class);
 
-	private NamedThreadLocalKit() {
+	private ThreadShareKit() {
 
 	}
 
-	private final static String DEFAULT_THREAD_LOCAL = "default-thread-local";
-	private final static Map<String, NamedThreadLocal<Object>> MAPPING = new ConcurrentHashMap<>();
+	private final static String DEFAULT_SHARE = "default-thread-share";
+	private final static Map<ThreadShare<Object>, Object> MAPPING = new ConcurrentHashMap<>();
 
-	static {
-		MAPPING.put(DEFAULT_THREAD_LOCAL, new NamedThreadLocal<>(DEFAULT_THREAD_LOCAL));
+	private static ThreadShare<Object> getShareByName(String name) {
+		return new ThreadShare<>(name);
 	}
 
 	public static <T> void put(T data) {
 		if (!(data instanceof String)) {
-			put(DEFAULT_THREAD_LOCAL);
+			put(DEFAULT_SHARE);
 			return;
 		}
-		put(DEFAULT_THREAD_LOCAL, data);
+		put(DEFAULT_SHARE, data);
 	}
 
 	public static <T> T get() {
-		return get(DEFAULT_THREAD_LOCAL);
+		return get(DEFAULT_SHARE);
 	}
 
 	public static <T> T getRemove() {
-		return getRemove(DEFAULT_THREAD_LOCAL);
+		return getRemove(DEFAULT_SHARE);
 	}
 
 	public static <T> void put(String name, T data) {
 		log.info("put data with name {} data {}", name, data);
-		MAPPING.put(name, new NamedThreadLocal<Object>(name) {
-			{
-				set(data);
-			}
-		});
+		MAPPING.put(ThreadShare.newOne(name), data);
 	}
 
 	public static <T> T get(String name) {
-		if (!MAPPING.containsKey(name)) {
+		final ThreadShare<Object> share = getShareByName(name);
+		if (!MAPPING.containsKey(share)) {
 			log.info("name {} is not exist", name);
 			return null;
 		}
-		final Object data = MAPPING.get(name).get();
+		final Object data = MAPPING.get(share);
 		log.info("get data {} with name {}", data, name);
 		return (T) data;
 	}
 
 	public static <T> T getRemove(String name) {
-		if (!MAPPING.containsKey(name)) {
+		final ThreadShare<Object> share = getShareByName(name);
+		if (!MAPPING.containsKey(share)) {
 			log.info("name {} is not exist", name);
 			return null;
 		}
-		final Object data = MAPPING.get(name).getRemove();
+		final Object data =  MAPPING.remove(share);
 		log.info("getRemove data {} with name {}", data, name);
 		return (T) data;
 	}

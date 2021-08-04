@@ -28,7 +28,10 @@
 package jdkit.demo;
 
 import org.junit.Test;
-import org.openingo.java.lang.NamedThreadLocalKit;
+import org.openingo.java.util.concurrent.ExecutorsX;
+import org.openingo.jdkits.lang.ThreadShareKit;
+
+import java.util.concurrent.ExecutorService;
 
 /**
  * v
@@ -36,14 +39,28 @@ import org.openingo.java.lang.NamedThreadLocalKit;
  * @author Qicz
  * @since 2021/8/4 11:24
  */
-public class TestThreadLocalKit {
+public class TestThreadShareKit {
 
 	@Test
 	public void test() {
-		NamedThreadLocalKit.put("a","111");
-		NamedThreadLocalKit.put("222");
-		NamedThreadLocalKit.put("22211");
-		System.out.println((String) NamedThreadLocalKit.get("a"));
-		System.out.println((String) NamedThreadLocalKit.get());
+		ThreadShareKit.put("a","111");
+		ThreadShareKit.put("222");
+		ThreadShareKit.put("22211");
+		System.out.println((String) ThreadShareKit.getRemove("a"));
+		System.out.println((String) ThreadShareKit.getRemove());
+
+		final ExecutorService executorService = ExecutorsX.newFixedThreadPool(3, 10);
+		for (int i = 0; i < 100; i++) {
+			executorService.submit(() -> {
+
+				ThreadShareKit.put("default");
+				ThreadShareKit.put("name", "named value");
+
+				System.out.println((String)ThreadShareKit.getRemove());
+				System.out.println((String)ThreadShareKit.getRemove("name"));
+			});
+		}
+
+		System.out.println((String)ThreadShareKit.get());
 	}
 }
