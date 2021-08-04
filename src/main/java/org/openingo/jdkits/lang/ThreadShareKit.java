@@ -68,7 +68,7 @@ public final class ThreadShareKit {
 
 	public static <T> void put(String name, T data) {
 		log.info("put data with name {} data {}", name, data);
-		MAPPING.put(ThreadShare.newOne(name), data);
+		MAPPING.put(getShareByName(name), data);
 	}
 
 	public static <T> T get(String name) {
