@@ -69,13 +69,6 @@ public final class RespData extends HashMap<String, Object> {
 	}
 
 	/**
-	 * check resp data
-	 */
-	public static Boolean succeed(RespData data) {
-		return Config.SUCCESS_SC.equals(data.getSc());
-	}
-	
-	/**
 	 * Success Response
 	 * @return response with success status
 	 */
@@ -126,6 +119,13 @@ public final class RespData extends HashMap<String, Object> {
 		if (ValidateKit.isNotNull(data)) {
 			this.put(Config.DATA_KEY, data);
 		}
+	}
+
+	/**
+	 * check resp data
+	 */
+	public boolean succeed() {
+		return Config.SUCCESS_SC.equals(this.getSc());
 	}
 
 	/**
