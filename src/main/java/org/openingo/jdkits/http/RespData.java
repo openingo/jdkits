@@ -67,6 +67,13 @@ public final class RespData extends HashMap<String, Object> {
 		}
 		return data;
 	}
+
+	/**
+	 * check resp data
+	 */
+	public static Boolean succeed(RespData data) {
+		return Config.SUCCESS_SC.equals(data.getSc());
+	}
 	
 	/**
 	 * Success Response
