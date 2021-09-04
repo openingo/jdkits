@@ -49,7 +49,7 @@ public class TestThreadShareKit {
 		System.out.println((String) ThreadShareKit.getRemove("a"));
 		System.out.println((String) ThreadShareKit.getRemove());
 
-		final ExecutorService executorService = ExecutorsX.newFixedThreadPool(3, 10);
+		final ExecutorService executorService = ExecutorsX.newFixedThreadPool(3, 100);
 		for (int i = 0; i < 100; i++) {
 			executorService.submit(() -> {
 
